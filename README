@@ -2,3 +2,37 @@ Author: Greg Froese
 Email: gfroese.dev@gmail.com
 
 A simple sports pool written on the Silk framework.
+
+============ INSTALLATION =============
+You'll need to create a 'config' directory that houses your basic silk configuration.
+The default files in this directory are:
+
+routes.php:
+<?php
+
+use \silk\action\Route;
+
+//Route examples
+//Route::register_route("/:controller/:action/:id");
+//Route::register_route("/:controller/:action", array("id" => ''));
+//Route::register_route("/:controller", array("id" => '', 'action' => 'index'));
+
+// Build default routes
+Route::build_default_component_routes();
+
+
+setup.yml:
+#Database details
+database:
+  # A Data Source Name (dsn) is a connection string of the form:
+  # driver://username:password@hostname/databasename
+  dsn: mysql://root:@localhost/cms_innodb
+  prefix: silk_
+
+#Should we be in debug mode?
+debug: false
+
+#Places to look for classes when autoloading
+class_autoload:
+  - app/models
+
