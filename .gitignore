@@ -2,3 +2,5 @@ lib/
 backups/
 config/
 tmp/
+.settings/
+.project
