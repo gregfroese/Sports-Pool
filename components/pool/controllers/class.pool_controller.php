@@ -8,7 +8,8 @@
 class PoolController extends \silk\action\Controller {
 
 function index( $params = null ) {
-	echo "Hello World";
+	$users = \silk\auth\User::find_all();
+	$this->set('users', $users);
 }
 
 function dashboard($params) {

@@ -1,18 +1,15 @@
-This is smarty
-Just a dumb example
 {* Smarty *}
 
 <table border="0" width="300">
     <tr>
-        <th colspan="2" bgcolor="#d1d1d1">Guestbook Entries (<a href="{$SCRIPT_NAME}?action=add">add</a>)</th>
+        <th colspan="20" bgcolor="#d1d1d1">List of Users</th>
     </tr>
-    {foreach from=$data item="entry"}
+    {foreach from=$users item="user"}
         <tr bgcolor="{cycle values="#dedede,#eeeeee" advance=false}">
-            <td>{$entry.Name|escape}</td>        
-            <td align="right">{$entry.EntryDate|date_format:"%e %b, %Y %H:%M:%S"}</td>        
-        </tr>
-        <tr>
-            <td colspan="2" bgcolor="{cycle values="#dedede,#eeeeee"}">{$entry.Comment|escape}</td>
+            <td>{$user.first_name|escape}</td>
+            <td>{$user.last_name|escape}</td>        
+            <td align="right">{$user.create_date|date_format:"%e %b, %Y %H:%M:%S"}</td>        
+            <td colspan="2" bgcolor="{cycle values="#dedede,#eeeeee"}">{$user.modified_date|date_format:"%e %b, %Y %H:%M:%S"}</td>
         </tr>
     {foreachelse}
         <tr>
