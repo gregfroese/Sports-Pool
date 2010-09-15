@@ -1,0 +1,114 @@
+@CHARSET "UTF-8";
+body {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+}
+/* table with alternating rows */
+	#hor-zebra
+	{
+	        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	        font-size: 12px;
+	        margin: 45px;
+	        width: 480px;
+	        text-align: left;
+	        border-collapse: collapse;
+	}
+	#hor-zebra th
+	{
+	        font-size: 14px;
+	        font-weight: normal;
+	        padding: 10px 8px;
+	        color: #039;
+	}
+	#hor-zebra td
+	{
+	        padding: 8px;
+	        color: #669;
+	}
+	#hor-zebra .odd
+	{
+	        background: #e8edff;
+	}
+/* login page */
+	fieldset {
+		border:1px dashed #CCCCCC;
+		margin-bottom:20px;
+		margin-top:20px;
+		padding:10px;
+	}
+	legend {
+		background:none repeat scroll 0 0 #666666;
+		border:1px solid #333333;
+		color:#FFFFFF;
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:90%;
+		font-weight:bold;
+		letter-spacing:-1px;
+		line-height:1.1;
+		padding:2px 6px;
+	}
+	.form {
+		margin:0;
+		padding:0;
+	}
+	label.login {
+		background-color:#CCCCCC;
+		color:#666666;
+		display:block;
+		float:left;
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:115%;
+		font-weight:normal;
+		height:32px;
+		letter-spacing:-1px;
+		line-height:1.1;
+		margin-right:2px;
+		margin-top:3px;
+		padding-left:6px;
+		padding-top:11px;
+		width:140px;
+	}
+	.div_texbox {
+		background-color:#E6E6E6;
+		float:right;
+		height:35px;
+		margin-top:3px;
+		padding-bottom:3px;
+		padding-left:5px;
+		padding-top:5px;
+		width:347px;
+	}
+	.button_div {
+		background-color:#FFFFFF;
+		border:1px solid #CCCCCC;
+		float:right;
+		height:35px;
+		margin-top:3px;
+		padding:5px 32px 3px;
+		text-align:right;
+		width:287px;
+	}
+	.clear {
+		clear:both;
+	}
+	#leftSide {
+		float:left;
+		padding-top:30px;
+		width:530px;
+	}
+/* message boxes */
+	.message{
+		border:solid 1px #DEDEDE;
+		background:#EFEFEF;
+		color:#222222;
+		padding:4px;
+		text-align:center;
+	}
+	.error {
+		border:solid 1px #E82C42;
+		background:#EBB5BB;
+		color:#E82C42;
+		padding:4px;
+		text-align:center;
+	}
+	
