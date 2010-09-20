@@ -5,32 +5,29 @@
 *
 */
 
+//use silk\action\Request;
 class DefaultController extends \silk\action\Controller {
 
 function index( $params = null ) {
+	if( isset( $_POST["username"] )) {
+		$user = \silk\auth\User::find_by_username( $_POST["username"] );
+		$session = new \silk\auth\UserSession( $params );
+		if ( !$session->login() ) {
+			$this->set( "error", "Wrong username or password" );
+			$user = null;
+		}
+	}
 	if( \silk\auth\UserSession::is_logged_in() ) {
-		var_dump( "logged in" );
 		$user = \silk\auth\UserSession::get_current_user();
 	} else {
-		var_dump( "NOT logged in" );
 		$user = null;
 	}
-	var_dump( $user );
 	$this->set( "user", $user );
-	
-	/*$users = \silk\auth\User::find_all();
-	$this->set('users', $users);
-	foreach( $users as $user ) {
-		$pass = "aasdfasdfds";
-		$user->set_password( $pass );
-		$user->email = date( "Y-m-d H:i:s" );
-		$result = $user->save();
-		var_dump( "save result $result" );
-//		var_dump( $user );
-		$us = new \silk\auth\UserSession( array( "username"=>$user->username, "password"=>$pass ));
-		$result = $us->login();
-		var_dump( "result", $result );
-	}*/
+}
+
+public function logout() {
+	\silk\auth\UserSession::logout();
+	\silk\action\Response::redirect( "/" );
 }
 
 function test_ajax($params)  {

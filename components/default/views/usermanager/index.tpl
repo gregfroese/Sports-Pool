@@ -8,6 +8,7 @@
 			<tr>
 				<td>id</td>
 				<td>Name</td>
+				<td>Usertype</td>
 				<td>Action</td>
 			</tr>
 		</thead>
@@ -16,6 +17,7 @@
 				<tr class="{cycle values="even,odd"}">
 					<td>{$user.id}</td>
 					<td>{$user.first_name} {$user.last_name}</td>
+					<td>{$user.usertype_id}</td>
 					<td><a href="/usermanager/edit/{$user.id}">Edit</a></td>
 				</tr>
 			{/foreach}

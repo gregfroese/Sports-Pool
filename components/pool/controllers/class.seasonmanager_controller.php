@@ -1,10 +1,8 @@
 <?php // -*- mode:php; tab-width:4; indent-tabs-mode:t; c-basic-offset:4; -*-
 class SeasonmanagerController extends \silk\action\Controller {
 
-	function listSeasons($params) {
-//		$seasons = orm('season')->find_all(array("order" => "name ASC"));
-		$seasons = Season::find_all(array("order" => "name ASC"));
-		var_dump( $seasons );
+	function index($params) {
+		$seasons = \pool\Season::find_all(array("order" => "name ASC"));
 		$this->set("seasons", $seasons );
 		/*
 		 * this goes in listseasons.tpl once stages are setup
@@ -18,36 +16,29 @@ class SeasonmanagerController extends \silk\action\Controller {
 		 */
 	}
 
-	function createSeason($params) {
-
-		if( $params["input"]) {
-			$season = new Season();
-			$season->name = $params["seasonName"];
-			$season->start_year = $params["startYear"];
-			$season->end_year = $params["endYear"];
-			$season->status_id = $params["status"];
-			if (!$season->save()) {
-				echo "Save failed<br />";
-				$this->set("saveErrors", $season->validation_errors);
-				return;
-			}
-			$savedSeason = $season->data_table($season);
-			var_dump( $savedSeason ); die;
-			$this->set("savedSeason", $savedSeason);
+	function edit( $params ) {
+		$season = \pool\Season::find_by_id( $params["id"] );
+		if( $params["id"] == "0" ) { //creating a new one
+			$season = new \pool\Season();
+			$season->fill_object( $params, $season );
+			$season->dirty = true;
+			$season->save();
+			$this->set( "message", "Created $season->name successfully" );
+		} elseif ( isset( $params["name"] )) { //saving an edit
+			$season->fill_object( $params, $season );
+			$season->dirty = true;
+			$season->save();
+			$this->set( "message", "Saved $season->name successfully" );
 		}
-	}
-
-	function createSeasonStore($params) {
-
-	}
-
-	function showSeasonORM($params) {
-		$seasons = orm('season')->find_all(array("order" => "name ASC"));
-		echo "<pre>"; var_dump($seasons); echo "</pre>";
-	}
-
-	function editSeason($params) {
-
+		
+		$this->set( "season", $season );
+		
+		$statuses = \pool\Status::find_all_by_query( "select * from silk_status where category = 'season' order by name asc" );
+		$this->set( "statuses", $statuses );
+		$this->set( "params", $params );
+			
+		/* old code, no idea how much of it works
+		 * 
 //		$fields = array( "	end_year" => array( "visible" => "none" ),
 //							"id" => array( "visible" => "yes") );
 		$fields = array(
@@ -74,6 +65,43 @@ class SeasonmanagerController extends \silk\action\Controller {
 
 		$result = SilkForm::auto_form($form_params, $one_season);
 		$this->set("form", $result);
+		*/
+	}
+	
+	public function manage( $params = array() ) {
+		$season = \pool\Season::find_by_id( $params["id"] );
+		$segments = \pool\Segment::find_all_by_query( "select * from silk_segments where seasonid=$season->id" );
+		$this->set( "season", $season );
+		$this->set( "segments", $segments );
+	}
+	
+	public function editSegment( $params = array() ) {
+		$season = \pool\Season::find_by_id( $params["id"] );
+		if( $params["subid"] == "0" ) { //new segment
+			$segment = new \pool\Segment();
+			$segment->fill_object( $params, $segment );
+			$segment->id = 0; //override the id passed in $params
+			$segment->seasonid = $season->id;
+			$segment->dirty = true;
+			$segment->save();
+			$this->set( "message", "Created $segment->name successfully" );
+		} elseif ( isset( $params["name"] )) { //saving an edit
+			$segment = \pool\Segment::find_by_id( $params["subid"] );
+			$segment->fill_object( $params, $segment );
+			$segment->id = $params["subid"]; //override the id passed in $params
+			$segment->dirty = true;
+			$segment->save();
+			$this->set( "message", "Saved $segment->name successfully" );
+		}
+		
+		if( !isset( $segment )) {
+			$segment = \pool\Segment::find_by_id( $params["subid"] );
+		}
+		$this->set( "season", $season );
+		$this->set( "segment", $segment );
+		$statuses = \pool\Status::find_all_by_query( "select * from silk_status where category = 'segment' order by name asc" );
+		$this->set( "statuses", $statuses );
+		$this->set( "params", $params );
 	}
 }
 ?>

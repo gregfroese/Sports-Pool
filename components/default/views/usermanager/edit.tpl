@@ -2,9 +2,12 @@
 <h1>User Manager - Edit/Create User</h1>
 <a href="/usermanager">Back to user list</a>
 <link rel="stylesheet" href="/css/style.css" type="text/css">
-
-<div class="message">{$message}</div>
-<div class="error">{$error}</div>
+{if $message ne ""}
+	<div class="message">{$message}</div>
+{/if}
+{if $error ne ""}
+	<div class="error">{$error}</div>
+{/if}
 
 <div id="content">
 	<form class="form" method="POST" action="">
@@ -27,6 +30,14 @@
 		<label for="password">Confirm Password</label>
 	    <div class="">
 	    	<input type="password" value="" id="password" class="password" name="confirm_password">
+		</div>
+		<div class="">
+			<select id="usertype_id" name="usertype_id">
+				<option value="0">Select a usertype</option>
+				{foreach from=$usertypes key=key item=usertype}
+					<option {if $user.usertype_id == $usertype.id}selected{/if} value="{$usertype.id}">{$usertype.name}</option>
+				{/foreach}
+			</select>
 		</div>
 		<div class="">
 		<input type="submit" class="buttons" value="Submit" name="Submit">
