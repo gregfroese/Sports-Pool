@@ -1,0 +1,39 @@
+{* Smarty *}
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<h1>Manage Segment</h1>
+<a href="/seasonmanager/manage/{$season.id}">Back to segment list</a><br />
+<a href="/seasonmanager/editGame/{$segment.id}/0">Create new game</a>
+<table class="hor-zebra" id="hor-zebra">
+<tr>
+	<th>Game ID</th>
+	<th>Away Team</th>
+	<th>Away Score</th>
+	<th>Home Team</th>
+	<th>Home Score</th>
+	<th>Modifier</th>
+	<th>Notes</th>
+	<th>Start Date</th>
+	<th>End Date</th>
+	<th>Action</th>
+</tr>
+{foreach from=$games item=game key=key}
+   <tr class="{cycle values="even, odd"}">
+      <td>{$game.id}</td>
+      <td>
+      	{$game->get_team($game.away_id) assign='team'}
+      	{$team.name}
+      </td>
+      <td>{$game.away_score}</td>
+      <td>
+      	{$game->get_team($game.home_id) assign='team'}
+      	{$team.name}
+      </td>
+      <td>{$game.home_score}</td>
+      <td>{$game.modifier}</td>
+      <td>{$game.notes}</td>
+      <td>{$game.start_date}</td>
+      <td>{$game.end_date}</td>
+      <td><a href="/seasonmanager/editGame/{$segment.id}/{$game.id}">Edit</a></td>
+   </tr>
+{/foreach}
+</table>

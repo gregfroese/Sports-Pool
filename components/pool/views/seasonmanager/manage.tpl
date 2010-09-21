@@ -22,7 +22,7 @@
       
 	  <td>
 	  	<a href="/seasonmanager/editSegment/{$season.id}/{$segment.id}">Edit</a><br />
-	  	<a href="/seasonmanager/manage/{$season.id}">Manage</a>
+	  	<a href="/seasonmanager/manageSegment/{$season.id}/{$segment.id}">Manage</a>
 	  </td>
    </tr>
 {/foreach}

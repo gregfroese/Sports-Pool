@@ -103,5 +103,52 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$this->set( "statuses", $statuses );
 		$this->set( "params", $params );
 	}
+	
+	public function manageSegment( $params = array() ) {
+		$this->set( "season", \pool\Season::find_by_id( $params["id"] ));
+		$segment = \pool\Segment::find_by_id( $params["subid"] );
+		$this->set( "segment", $segment );
+		$this->set( "games", $segment->games );
+	}
+	
+	public function editGame( $params = array() ) {
+		var_dump( $params );
+		$segment = \pool\Segment::find_by_id( $params["id"] );
+		$season = \pool\Season::find_by_id( $segment->seasonid );
+		
+		if( $params["subid"] == 0 ) { //new game
+			$game = new \pool\Game();
+			$game->fill_object( $params, $game );
+			$game->id = 0; //override the id passed in $params
+			$game->home_id = 0;
+			$game->away_id = 0;
+			$game->segment_id = $segment->id;
+			$game->dirty = true;
+			$game->save();
+			$redirect = "/seasonmanager/editGame/$segment->id/$game->id";
+			\silk\action\Response::redirect( $redirect );
+		} elseif ( isset( $params["home_id"] )) { //saving an edit
+			$game = \pool\Game::find_by_id( $params["subid"] );
+			$game->fill_object( $params, $game );
+			$game->segment_id = $segment->id;
+			$game->id = $params["subid"]; //override the id passed in $params
+			$game->dirty = true;
+			$game->save();
+			$redirect = "/seasonmanager/manageSegment/$season->id/$segment->id";
+			\silk\action\Response::redirect( $redirect );
+		}
+		
+		if( !isset( $game )) {
+			$game = \pool\Game::find_by_id( $params["subid"] );
+		}
+		$sql = "select * from silk_teams where sport_id=" . $season->sport_id . " order by name ASC";
+		$this->set( "teams", \pool\Team::find_all_by_query( $sql ));
+		$this->set( "game", $game );
+		$this->set( "season", $season );
+		$this->set( "segment", $segment );
+		$statuses = \pool\Status::find_all_by_query( "select * from silk_status where category = 'game' order by name asc" );
+		$this->set( "statuses", $statuses );
+		$this->set( "params", $params );
+	}
 }
 ?>
