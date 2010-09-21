@@ -20,13 +20,11 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$season = \pool\Season::find_by_id( $params["id"] );
 		if( $params["id"] == "0" ) { //creating a new one
 			$season = new \pool\Season();
-			$season->fill_object( $params, $season );
-			$season->dirty = true;
+			$season->update_parameters( $params );
 			$season->save();
 			$this->set( "message", "Created $season->name successfully" );
 		} elseif ( isset( $params["name"] )) { //saving an edit
-			$season->fill_object( $params, $season );
-			$season->dirty = true;
+			$season->update_parameters( $params, $season );
 			$season->save();
 			$this->set( "message", "Saved $season->name successfully" );
 		}
@@ -112,7 +110,6 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function editGame( $params = array() ) {
-		var_dump( $params );
 		$segment = \pool\Segment::find_by_id( $params["id"] );
 		$season = \pool\Season::find_by_id( $segment->seasonid );
 		
