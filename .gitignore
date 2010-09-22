@@ -4,3 +4,4 @@ config/
 tmp/
 .settings/
 .project
+clear.cache.sh

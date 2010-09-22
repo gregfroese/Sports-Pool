@@ -77,15 +77,14 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$season = \pool\Season::find_by_id( $params["id"] );
 		if( $params["subid"] == "0" ) { //new segment
 			$segment = new \pool\Segment();
-			$segment->fill_object( $params, $segment );
+			$segment->update_parameters( $param );
 			$segment->id = 0; //override the id passed in $params
 			$segment->seasonid = $season->id;
-			$segment->dirty = true;
 			$segment->save();
 			$this->set( "message", "Created $segment->name successfully" );
 		} elseif ( isset( $params["name"] )) { //saving an edit
 			$segment = \pool\Segment::find_by_id( $params["subid"] );
-			$segment->fill_object( $params, $segment );
+			$segment->update_parameters( $params, $segment );
 			$segment->id = $params["subid"]; //override the id passed in $params
 			$segment->dirty = true;
 			$segment->save();
@@ -115,7 +114,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 		
 		if( $params["subid"] == 0 ) { //new game
 			$game = new \pool\Game();
-			$game->fill_object( $params, $game );
+			$game->update_parameters( $params );
 			$game->id = 0; //override the id passed in $params
 			$game->home_id = 0;
 			$game->away_id = 0;
@@ -126,7 +125,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 			\silk\action\Response::redirect( $redirect );
 		} elseif ( isset( $params["home_id"] )) { //saving an edit
 			$game = \pool\Game::find_by_id( $params["subid"] );
-			$game->fill_object( $params, $game );
+			$game->update_parameters( $params );
 			$game->segment_id = $segment->id;
 			$game->id = $params["subid"]; //override the id passed in $params
 			$game->dirty = true;
