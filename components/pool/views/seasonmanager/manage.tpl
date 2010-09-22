@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>Segments for {$season.name}</h1>
 
-<a href="/seasonmanager/">Back to season list</a><br />
-<a href="/seasonmanager/editSegment/{$season.id}/0">Create new segment</a><br />
+{link action='index' text='Back to season list'}<br />
+{link action='editSegment' text='Create new segment' id=$season->id}<br />
 <table class="hor-zebra" id="hor-zebra">
 <tr>
 	<th>Name</th>

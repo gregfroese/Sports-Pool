@@ -29,6 +29,6 @@
 	</div>
 {else}
 	welcome back {$user.first_name}<br />
-	<a href="/default/logout">Logout</a>
+	{link action='logout' text='Logout'}
 {/if}
 	

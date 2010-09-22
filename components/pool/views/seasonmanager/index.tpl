@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>List Teams</h1>
 
-<a href="/seasonmanager/edit/0">Create new season</a>
+{link action='edit' text='Create new season'}
 <table class="hor-zebra" id="hor-zebra">
 <tr>
 	<th>Name</th>
@@ -15,8 +15,8 @@
       <td>{$season.start_year} - {$season.end_year}</td>
       
 	  <td>
-	  	<a href="/seasonmanager/edit/{$season.id}">Edit</a><br />
-	  	<a href="/seasonmanager/manage/{$season.id}">Manage</a>
+	  	{link action='edit' text='Edit' id=$season->id}<br />
+	  	{link action='manage' text='Manage' id=$season->id}
 	  </td>
    </tr>
 {/strip}

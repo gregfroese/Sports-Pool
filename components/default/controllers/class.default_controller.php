@@ -27,7 +27,7 @@ function index( $params = null ) {
 
 public function logout() {
 	\silk\auth\UserSession::logout();
-	\silk\action\Response::redirect( "/" );
+	\silk\action\Response::redirect_to_action(array('action' => 'index'));
 }
 
 function test_ajax($params)  {
