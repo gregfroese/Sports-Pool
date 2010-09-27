@@ -18,21 +18,19 @@ class SeasonmanagerController extends \silk\action\Controller {
 
 	function edit( $params ) {
 		$season = \pool\Season::find_by_id( $params["id"] );
-		if( $params["id"] == "0" ) { //creating a new one
+		if( !empty( $params["name"] )) { //creating a new one or saving an edit
 			$season = new \pool\Season();
 			$season->update_parameters( $params );
 			$season->save();
-			$this->set( "message", "Created $season->name successfully" );
-		} elseif ( isset( $params["name"] )) { //saving an edit
-			$season->update_parameters( $params, $season );
-			$season->save();
-			$this->set( "message", "Saved $season->name successfully" );
+			$this->set( "message", "$season->name saved successfully" );
 		}
 		
 		$this->set( "season", $season );
 		
 		$statuses = \pool\Status::find_all_by_query( "select * from silk_status where category = 'season' order by name asc" );
 		$this->set( "statuses", $statuses );
+		$sports = \pool\Sport::find_all_by_query( "select * from silk_sports order by name asc" );
+		$this->set( "sports", $sports );
 		$this->set( "params", $params );
 			
 		/* old code, no idea how much of it works
@@ -75,25 +73,16 @@ class SeasonmanagerController extends \silk\action\Controller {
 	
 	public function editSegment( $params = array() ) {
 		$season = \pool\Season::find_by_id( $params["id"] );
-		if( $params["subid"] == "0" ) { //new segment
-			$segment = new \pool\Segment();
-			$segment->update_parameters( $param );
-			$segment->id = 0; //override the id passed in $params
-			$segment->seasonid = $season->id;
-			$segment->save();
-			$this->set( "message", "Created $segment->name successfully" );
-		} elseif ( isset( $params["name"] )) { //saving an edit
-			$segment = \pool\Segment::find_by_id( $params["subid"] );
-			$segment->update_parameters( $params, $segment );
+		$segment = \pool\Segment::find_by_id( $params["subid"] );
+		if ( !empty( $params["save"] )) { //saving an edit or creating a new one
+			if( !isset( $segment->id )) $segment = new \pool\Segment();
+			$segment->update_parameters( $params );
 			$segment->id = $params["subid"]; //override the id passed in $params
-			$segment->dirty = true;
 			$segment->save();
-			$this->set( "message", "Saved $segment->name successfully" );
+			$redirect = "/seasonmanager/manage/$season->id";
+			\silk\action\Response::redirect( $redirect );
 		}
 		
-		if( !isset( $segment )) {
-			$segment = \pool\Segment::find_by_id( $params["subid"] );
-		}
 		$this->set( "season", $season );
 		$this->set( "segment", $segment );
 		$statuses = \pool\Status::find_all_by_query( "select * from silk_status where category = 'segment' order by name asc" );
@@ -111,34 +100,21 @@ class SeasonmanagerController extends \silk\action\Controller {
 	public function editGame( $params = array() ) {
 		$segment = \pool\Segment::find_by_id( $params["id"] );
 		$season = \pool\Season::find_by_id( $segment->seasonid );
+		$game = \pool\Game::find_by_id( $params["subid"] );
+		var_dump( $params );
 		
-		if( $params["subid"] == 0 ) { //new game
-			$game = new \pool\Game();
+		if( !empty( $params["save"] )) { //creating a new game or saving an edit
+			if( !isset( $game->id )) $game = new \pool\Game();
 			$game->update_parameters( $params );
-			$game->id = 0; //override the id passed in $params
-			$game->home_id = 0;
-			$game->away_id = 0;
-			$game->segment_id = $segment->id;
-			$game->dirty = true;
-			$game->save();
-			$redirect = "/seasonmanager/editGame/$segment->id/$game->id";
-			\silk\action\Response::redirect( $redirect );
-		} elseif ( isset( $params["home_id"] )) { //saving an edit
-			$game = \pool\Game::find_by_id( $params["subid"] );
-			$game->update_parameters( $params );
-			$game->segment_id = $segment->id;
 			$game->id = $params["subid"]; //override the id passed in $params
-			$game->dirty = true;
 			$game->save();
 			$redirect = "/seasonmanager/manageSegment/$season->id/$segment->id";
 			\silk\action\Response::redirect( $redirect );
 		}
 		
-		if( !isset( $game )) {
-			$game = \pool\Game::find_by_id( $params["subid"] );
-		}
 		$sql = "select * from silk_teams where sport_id=" . $season->sport_id . " order by name ASC";
-		$this->set( "teams", \pool\Team::find_all_by_query( $sql ));
+		$teams = \pool\Team::find_all_by_query( $sql );
+		$this->set( "teams", $teams );
 		$this->set( "game", $game );
 		$this->set( "season", $season );
 		$this->set( "segment", $segment );

@@ -51,8 +51,4 @@ class UsermanagerController extends \silk\action\Controller {
 		$usertypes = \silk\auth\Usertype::find_all( array( "order"=>"name ASC" ));
 		$this->set( "usertypes", $usertypes );
 	}
-	
-	public function save( $params ) {
-//		var_dump( $params ); die;
-	}
 }

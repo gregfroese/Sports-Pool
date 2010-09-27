@@ -10,6 +10,7 @@
 	<th>Away Score</th>
 	<th>Home Team</th>
 	<th>Home Score</th>
+	<th>Status</th>
 	<th>Modifier</th>
 	<th>Notes</th>
 	<th>Start Date</th>
@@ -19,16 +20,11 @@
 {foreach from=$games item=game key=key}
    <tr class="{cycle values="even, odd"}">
       <td>{$game.id}</td>
-      <td>
-      	{$game->get_team($game.away_id) assign='team'}
-      	{$team.name}
-      </td>
+      <td>{$game->awayteam.name}</td>
       <td>{$game.away_score}</td>
-      <td>
-      	{$game->get_team($game.home_id) assign='team'}
-      	{$team.name}
-      </td>
+      <td>{$game->hometeam.name}</td>
       <td>{$game.home_score}</td>
+	  <td>{$game->status.name}</td>
       <td>{$game.modifier}</td>
       <td>{$game.notes}</td>
       <td>{$game.start_date}</td>

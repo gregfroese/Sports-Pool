@@ -1,5 +1,5 @@
 {* Smarty *}
-<h1>Segment Manager: {if $params["name"] ne ""}Edit{else}Create{/if}</h1>
+<h1>Segment Manager: {if $segment.name ne ""}Edit{else}Create{/if}</h1>
 <a href="/seasonmanager/manage/{$season.id}">Back to Manage Season</a>
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 {if $message ne ""}
@@ -11,6 +11,8 @@
 
 <div id="content">
 	<form class="form" method="POST" action="">
+		<input type="hidden" value="1" name="save">
+		<input type="hidden" value="{$season.id}" name="seasonid">
 	  	<label for="name">Name</label>
 	    <div class="">
 	    	<input type="text" value="{$segment.name}" id="name" class="name" name="name">

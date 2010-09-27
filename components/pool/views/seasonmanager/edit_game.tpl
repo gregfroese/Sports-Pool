@@ -11,13 +11,14 @@
 
 <div id="content">
 	<form class="form" method="POST" action="">
+		<input type="hidden" value="1" name="save">
+		<input type="hidden" value="{$segment.id}" name="segment_id">
 		<div>
 		  	<label for="awayteam">Away Team ({$game.away_id})</label>
-	    	{$game->get_team($game.away_id) assign='awayteam'}
 	    	<select id="away_id" name="away_id">
 	    		<option value="0">Select away team</option>
 	    		{foreach from=$teams key=key item=team}
-	    			<option {if $team.id == $awayteam.id}selected{/if} value="{$team.id}">{$team.name}</option>
+	    			<option {if $team.id == $game->awayteam.id}selected{/if} value="{$team.id}">{$team.name}</option>
 	    		{/foreach}
 	    	</select>
 		</div>
@@ -27,11 +28,10 @@
 		</div>
 		<div>	
 			<label for="hometeam">Away Team ({$game.home_id})</label>
-	    	{$game->get_team($game.home_id) assign='hometeam'}
 	    	<select id="home_id" name="home_id">
 	    		<option value="0">Select home team</option>
 	    		{foreach from=$teams key=key item=team}
-	    			<option {if $team.id == $hometeam.id}selected{/if} value="{$team.id}">{$team.name}</option>
+	    			<option {if $team.id == $game->hometeam.id}selected{/if} value="{$team.id}">{$team.name}</option>
 	    		{/foreach}
 	    	</select>
 		</div>

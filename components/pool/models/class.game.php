@@ -13,11 +13,14 @@ class Game extends ActiveRecord {
 
     function setup()
     {
-    	$this->create_has_one_association( "hometeam", "pool\Team", "home_id");
+    	$this->create_belongs_to_association( "hometeam", "pool\Team", "home_id");
+    	$this->create_belongs_to_association( "awayteam", "pool\Team", "away_id");
+    	$this->create_belongs_to_association( "winner", "pool\Team", "winner_id");
+    	$this->create_belongs_to_association( "loserteam", "pool\Team", "loser_id");
     	$this->create_has_one_association( "awayteam", "pool\Team", "away_id");
     	$this->create_has_one_association( "winner", "pool\Team", "winner_id");
     	$this->create_has_one_association( "loser", "pool\Team", "loser_id");
-    	$this->create_has_one_association( "status", "pool\Team", "status_id");
+    	$this->create_belongs_to_association( "status", "pool\Status", "status_id", array() );
 //    	$this->has_association("stages", "stage_id");
 //      $this->create_belongs_to_association('author', 'CmsUser', 'author_id');
 //      $this->create_has_and_belongs_to_many_association('categories', 'BlogCategory', 'blog_post_categories', 'category_id', 'post_id', array('order' => 'name ASC'));

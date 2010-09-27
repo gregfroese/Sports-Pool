@@ -23,7 +23,14 @@
 		<div class="">
 			<input type="text" value="{$season.end_year}" id="end_year" class="end_year" name="end_year">
 		</div>
-		 
+		 <div class="">
+			<select id="sport_id" name="sport_id">
+				<option value="0">Select sport</option>
+				{foreach from=$sports key=key item=sport}
+					<option {if $sport.id == $season.sport_id}selected{/if} value="{$sport.id}">{$sport.name}</option>
+				{/foreach}
+			</select>
+		</div>
 		<div class="">
 			<select id="status_id" name="status_id">
 				<option value="0">Select a status</option>
