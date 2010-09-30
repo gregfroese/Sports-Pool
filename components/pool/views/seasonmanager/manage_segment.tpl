@@ -1,4 +1,8 @@
 {* Smarty *}
+{literal}
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/manageSegment.js"></script>
+{/literal}
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>Manage Segment</h1>
 <a href="/seasonmanager/manage/{$season.id}">Back to segment list</a><br />
@@ -19,7 +23,7 @@
 </tr>
 {foreach from=$games item=game key=key}
    <tr class="{cycle values="even, odd"}">
-      <td>{$game.id}</td>
+      <td>{link action="editGame" id=$segment.id subid=$game.id text=$game.id}</td>
       <td>{$game->awayteam.name}</td>
       <td>{$game.away_score}</td>
       <td>{$game->hometeam.name}</td>
@@ -29,7 +33,8 @@
       <td>{$game.notes}</td>
       <td>{$game.start_date}</td>
       <td>{$game.end_date}</td>
-      <td><a href="/seasonmanager/editGame/{$segment.id}/{$game.id}">Edit</a></td>
+      <td><div class="game_{$game.id}"><a href="311" class="closeGame">Close</a></div></td>
+      
    </tr>
 {/foreach}
 </table>

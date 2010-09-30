@@ -1,4 +1,5 @@
 <?php // -*- mode:php; tab-width:4; indent-tabs-mode:t; c-basic-offset:4; -*-
+use silk\action\Request;
 class SeasonmanagerController extends \silk\action\Controller {
 
 	function index($params) {
@@ -121,6 +122,24 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$statuses = \pool\Status::find_all_by_query( "select * from silk_status where category = 'game' order by name asc" );
 		$this->set( "statuses", $statuses );
 		$this->set( "params", $params );
+	}
+	
+	public function closeGame( $params = array() ) {
+		$this->show_layout = false; //don't know if i need this
+		$game_id = $params["id"];
+		$div = "game_$game_id";
+		echo "Game ID: $game_id";
+		
+		$resp = new SilkAjax();
+	    $resp->replace_html($div, "New content says 'Hi!'");
+	    $resp->replace($div, "style", "color: red;");
+	    $resp->insert($div, " Append me, baby!");
+	    $resp->insert($div, "Prepend me, too. ", "prepend");
+	    $resp->insert($div, "<div id='after'>After</div>", "after");
+	    $resp->insert($div, "Before ", "before");
+	    $resp->remove("#after");
+	    return $resp->get_result();
+		return;
 	}
 }
 ?>
