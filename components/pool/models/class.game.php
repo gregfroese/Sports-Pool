@@ -42,6 +42,34 @@ class Game extends ActiveRecord {
     	$this->save(); 
     }
     
+    public function getPick( $user = null ) {
+    	if( empty( $user )) {
+    		$user = \silk\Auth\UserSession::get_current_user();
+    	}
+    	$sql = "SELECT * FROM silk_picks AS sp WHERE game_id = ? AND user_id = ?";
+    	$params = array( $this->id, $user->id );
+    	return \pool\Pick::find_by_query( $sql, $params );
+    }
+    
+    public function makePick( $user, $team_id ) {
+    	//check if there is already a pick
+    	$pick = $this->getPick( $user );
+    	if( empty( $pick )) {
+    		$pick = new \pool\Pick();
+	    	$pick->game_id = $this->id;
+	    	$pick->user_id = $user->id;
+    	}
+    	$pick->team_id = $team_id; //-1 is a tie
+    	$pick->status_id = 7; //Open
+    	$pick->save();
+    }
+    
+    public function lockPick( $user ) {
+    	$pick = $this->getPick( $user );
+    	$pick->status_id = 8; //locked
+    	$pick->save();
+    }
+    
 	public function validate() {
 //		if( empty($this->params["name"]) ) $this->add_validation_error("Seasons must have a name.");
 //		if( intval($this->params["startYear"] < date("yyyy"))) $this->add_validation_error("Season cannot exist in the past.");

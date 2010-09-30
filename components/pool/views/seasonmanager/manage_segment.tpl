@@ -27,3 +27,7 @@
    </tr>
 {/foreach}
 </table>
+
+<div class="links">
+	{link component="pool" controller="seasonmanager" action="calculatePoints" id=$segment.id text="Calculate Points"}
+</div>

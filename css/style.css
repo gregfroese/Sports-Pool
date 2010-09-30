@@ -3,13 +3,27 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	.chosen
+	{
+		font-weight: bold;
+		font-size: 16px;
+		color: #3DAD46;
+	}
+	#game_picks
+	{
+	        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	        font-size: 12px;
+	        margin: 0px 0px 0px 0px;
+	        text-align: left;
+	        border-collapse: collapse;
+	}
 /* table with alternating rows */
 	#hor-zebra
 	{
 	        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	        font-size: 12px;
-	        margin: 15px;
-	        width: 480px;
+	        margin: 0px 0px 0px 0px;
+	        width: 800px;
 	        text-align: left;
 	        border-collapse: collapse;
 	}
@@ -17,12 +31,12 @@ body {
 	{
 	        font-size: 14px;
 	        font-weight: normal;
-	        padding: 10px 8px;
+	        padding: 5px 8px;
 	        color: #039;
 	}
 	#hor-zebra td
 	{
-	        padding: 8px;
+	        padding: 1px;
 	        color: #669;
 	}
 	#hor-zebra .odd

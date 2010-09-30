@@ -58,7 +58,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 	
 	public function manage( $params = array() ) {
 		$season = \pool\Season::find_by_id( $params["id"] );
-		$segments = \pool\Segment::find_all_by_query( "select * from silk_segments where seasonid=$season->id" );
+		$segments = \pool\Segment::find_all_by_query( "select * from silk_segments where season_id=$season->id" );
 		$this->set( "season", $season );
 		$this->set( "segments", $segments );
 	}
@@ -92,7 +92,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 	
 	public function editGame( $params = array() ) {
 		$segment = \pool\Segment::find_by_id( $params["id"] );
-		$season = \pool\Season::find_by_id( $segment->seasonid );
+		$season = \pool\Season::find_by_id( $segment->season_id );
 		$game = \pool\Game::find_by_id( $params["subid"] );
 		
 		if( !empty( $params["save"] )) { //creating a new game or saving an edit
@@ -133,6 +133,11 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$game_id = $params["id"];
 		$game = Game::find_by_id( $game_id );
 		$this->set( "game", $game );
+	}
+	
+	public function calculatePoints( $params ) {
+		$segment = \pool\Segment::find_by_id( $params["id"] );
+		var_dump( "need something to calc with", $segment ); die;
 	}
 }
 ?>

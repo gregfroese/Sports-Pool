@@ -12,7 +12,7 @@
 <div id="content">
 	<form class="form" method="POST" action="">
 		<input type="hidden" value="1" name="save">
-		<input type="hidden" value="{$season.id}" name="seasonid">
+		<input type="hidden" value="{$season.id}" name="season_id">
 	  	<label for="name">Name</label>
 	    <div class="">
 	    	<input type="text" value="{$segment.name}" id="name" class="name" name="name">
