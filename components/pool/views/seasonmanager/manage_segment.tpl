@@ -23,18 +23,7 @@
 </tr>
 {foreach from=$games item=game key=key}
    <tr class="{cycle values="even, odd"}">
-      <td>{link action="editGame" id=$segment.id subid=$game.id text=$game.id}</td>
-      <td>{$game->awayteam.name}</td>
-      <td>{$game.away_score}</td>
-      <td>{$game->hometeam.name}</td>
-      <td>{$game.home_score}</td>
-	  <td>{$game->status.name}</td>
-      <td>{$game.modifier}</td>
-      <td>{$game.notes}</td>
-      <td>{$game.start_date}</td>
-      <td>{$game.end_date}</td>
-      <td><div class="game_{$game.id}"><a href="311" class="closeGame">Close</a></div></td>
-      
+      {render_partial template="game_detail.tpl" game=$game}
    </tr>
 {/foreach}
 </table>

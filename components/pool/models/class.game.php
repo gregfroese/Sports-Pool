@@ -29,7 +29,19 @@ class Game extends ActiveRecord {
     public function get_team( $team_id ) {
     	return \pool\Team::find_by_query( "select * from silk_teams where id=$team_id" );
     }
-
+    
+    public function closeGame() {
+    	$status = \pool\Status::find_status_by_category_and_name( "game", "Closed" );
+    	$this->status_id = $status->id;
+    	$this->save(); 
+    }
+    
+    public function reopenGame() {
+    	$status = \pool\Status::find_status_by_category_and_name( "game", "Active" );
+    	$this->status_id = $status->id;
+    	$this->save(); 
+    }
+    
 	public function validate() {
 //		if( empty($this->params["name"]) ) $this->add_validation_error("Seasons must have a name.");
 //		if( intval($this->params["startYear"] < date("yyyy"))) $this->add_validation_error("Season cannot exist in the past.");

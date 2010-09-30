@@ -1,0 +1,1 @@
+<a href="#" onClick="reopenGame({$game.id})">Reopen</a>

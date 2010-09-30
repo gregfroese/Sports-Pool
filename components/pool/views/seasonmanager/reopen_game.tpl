@@ -1,0 +1,1 @@
+<a href="{$game.id}" onclick='var game_id = $(this).attr("href"); var link = "/seasonmanager/closeGame/" + game_id; $(".gameAction_" + game_id).load( link ); link = "/seasonmanager/getStatus/" + game_id; $(".gameStatus_" + game_id).load( link ); return false;'>Close</a>

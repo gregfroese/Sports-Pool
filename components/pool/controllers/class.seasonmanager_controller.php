@@ -1,20 +1,11 @@
 <?php // -*- mode:php; tab-width:4; indent-tabs-mode:t; c-basic-offset:4; -*-
+use pool\Game;
 use silk\action\Request;
 class SeasonmanagerController extends \silk\action\Controller {
 
 	function index($params) {
 		$seasons = \pool\Season::find_all(array("order" => "name ASC"));
 		$this->set("seasons", $seasons );
-		/*
-		 * this goes in listseasons.tpl once stages are setup
-		 <td>
-	      {foreach from=$season->stages item=entry key=name}
-	      {strip}
-	      {$entry.name}<br />
-	      {/strip}
-	      {/foreach}
-	  	</td>
-		 */
 	}
 
 	function edit( $params ) {
@@ -92,7 +83,8 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function manageSegment( $params = array() ) {
-		$this->set( "season", \pool\Season::find_by_id( $params["id"] ));
+		$season = \pool\Season::find_by_id( $params["id"] );
+		$this->set( "season", $season );
 		$segment = \pool\Segment::find_by_id( $params["subid"] );
 		$this->set( "segment", $segment );
 		$this->set( "games", $segment->games );
@@ -102,7 +94,6 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$segment = \pool\Segment::find_by_id( $params["id"] );
 		$season = \pool\Season::find_by_id( $segment->seasonid );
 		$game = \pool\Game::find_by_id( $params["subid"] );
-		var_dump( $params );
 		
 		if( !empty( $params["save"] )) { //creating a new game or saving an edit
 			if( !isset( $game->id )) $game = new \pool\Game();
@@ -125,21 +116,23 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function closeGame( $params = array() ) {
-		$this->show_layout = false; //don't know if i need this
 		$game_id = $params["id"];
-		$div = "game_$game_id";
-		echo "Game ID: $game_id";
-		
-		$resp = new SilkAjax();
-	    $resp->replace_html($div, "New content says 'Hi!'");
-	    $resp->replace($div, "style", "color: red;");
-	    $resp->insert($div, " Append me, baby!");
-	    $resp->insert($div, "Prepend me, too. ", "prepend");
-	    $resp->insert($div, "<div id='after'>After</div>", "after");
-	    $resp->insert($div, "Before ", "before");
-	    $resp->remove("#after");
-	    return $resp->get_result();
-		return;
+		$game = Game::find_by_id( $game_id );
+		$game->closeGame();
+		$this->set( "game", $game );
+	}
+	
+	public function reopenGame( $params = array() ) {
+		$game_id = $params["id"];
+		$game = Game::find_by_id( $game_id );
+		$game->reopenGame();
+		$this->set( "game", $game );
+	}
+	
+	public function getStatus( $params = array() ) {
+		$game_id = $params["id"];
+		$game = Game::find_by_id( $game_id );
+		$this->set( "game", $game );
 	}
 }
 ?>
