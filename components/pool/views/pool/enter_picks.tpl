@@ -14,7 +14,7 @@
 					<th width="20%">Home Team</th>
 					<th width="5%">Modifier</th>
 					<th width="10%">Action</th>
-					<th width="10%">Availability</th>
+					<th width="20%">Availability</th>
 				</tr>
 			</table>
 		</td>

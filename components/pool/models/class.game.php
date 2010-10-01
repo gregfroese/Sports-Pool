@@ -31,9 +31,27 @@ class Game extends ActiveRecord {
     }
     
     public function closeGame() {
+    	//close the actual game
     	$status = \pool\Status::find_status_by_category_and_name( "game", "Closed" );
     	$this->status_id = $status->id;
     	$this->save(); 
+    	//lock all the picks for this game
+    	$this->lockAllPicks();
+    }
+    
+    public function lockAllPicks() {
+    	
+    	$status = \pool\Status::find_status_by_category_and_name( "pick", "Locked" );
+    	$picks = $this->getAllPicks();
+    	foreach( $picks as $pick ) {
+			$pick->status_id = $status->id;
+    		$pick->save();
+    	}
+    }
+    public function getAllPicks() {
+    	$sql = "SELECT * FROM silk_picks AS sp WHERE game_id = ?";
+    	$params = array( $this->id );
+    	return \pool\Pick::find_all_by_query( $sql, $params );
     }
     
     public function reopenGame() {

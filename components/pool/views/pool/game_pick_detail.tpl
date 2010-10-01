@@ -10,7 +10,11 @@
 			{/if}
 			<div class="{$class}">
 				{if $pick->status.name == "" or $pick->status.name == "Open"}
-					<a class="pick" href="#" onClick="pickTeam({$game.id},{$game.away_id})">{$game->awayteam->name}</a>
+					{if $date > $game.start_date and $date < $game.end_date and $game->status.name != "Closed"}
+						<a class="pick" href="" onClick="pickTeam({$game.id},{$game.away_id}); return false;">{$game->awayteam->name}</a>
+					{else}
+						{$game->awayteam->name}
+					{/if}
 				{else}
 					{$game->awayteam->name}
 				{/if}
@@ -24,7 +28,11 @@
 			{/if}
 			<div class="{$class}">
 				{if $pick->status.name == "" or $pick->status.name == "Open"}
-					<a href="#" onClick="pickTie({$game.id})">Tie</a>
+					{if $date > $game.start_date and $date < $game.end_date and $game->status.name != "Closed"}
+						<a href="" onClick="pickTie({$game.id}); return false;">Tie</a>
+					{else}
+						Tie
+					{/if}
 				{else}
 					Tie
 				{/if}
@@ -38,7 +46,11 @@
 			{/if}
 			<div class="{$class}">
 				{if $pick->status.name == "" or $pick->status.name == "Open"}
-					<a class="pick" href="#" onClick="pickTeam({$game.id},{$game.home_id})">{$game->hometeam->name}</a>
+					{if $date > $game.start_date and $date < $game.end_date and $game->status.name != "Closed"}
+						<a class="pick" href="" onClick="pickTeam({$game.id},{$game.home_id}); return false;">{$game->hometeam->name}</a>
+					{else}
+						{$game->hometeam.name}
+					{/if}
 				{else}
 					{$game->hometeam->name}
 				{/if}
@@ -50,12 +62,14 @@
 				N/A
 			{else}
 				{if $pick->status.name != "Locked"}
-					<a href="#" onClick="lockPick({$game.id})">Lock</a>
+					<a href="" onClick="lockPick({$game.id}); return false;">Lock</a>
 				{else}
 					Locked
 				{/if}
 			{/if}
 		</td>
-		<td width="10%">{$game.end_date}</td>
+		<td width="20%">
+			{$game.start_date} - {$game.end_date}
+		</td>
 	</tr>
 </table>

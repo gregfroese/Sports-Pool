@@ -1,1 +1,1 @@
-<a href="#" onClick="reopenGame({$game.id})">Reopen</a>
+<a href="" onClick="reopenGame({$game.id}); return false;">Reopen</a>

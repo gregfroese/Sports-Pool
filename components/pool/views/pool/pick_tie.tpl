@@ -1,1 +1,1 @@
-{render_partial template="game_pick_detail.tpl" game=$game}
+{render_partial template="game_pick_detail.tpl" game=$game date=$date}

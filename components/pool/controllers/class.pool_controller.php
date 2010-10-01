@@ -41,6 +41,7 @@ class PoolController extends \silk\action\Controller {
 		$segment_id = $params["id"];
 		$segment = \pool\Segment::find_by_id( $segment_id );
 		$this->set( "segment", $segment );
+		$this->set( "date", date( "Y-m-d H:i:s" ));
 	}
 	
 	public function pickTeam( $params = array() ) {
@@ -50,6 +51,7 @@ class PoolController extends \silk\action\Controller {
 		$user = \silk\Auth\UserSession::get_current_user();
 		$game->makePick( $user, $team_id );
 		$this->set( "game", $game );
+		$this->set( "date", date( "Y-m-d H:i:s" ));
 	}
 	
 	public function lockPick( $params = array() ) {
@@ -67,5 +69,6 @@ class PoolController extends \silk\action\Controller {
 		$user = \silk\Auth\UserSession::get_current_user();
 		$game->makePick( $user, $team_id );
 		$this->set( "game", $game );
+		$this->set( "date", date( "Y-m-d H:i:s" ));
 	}
 }

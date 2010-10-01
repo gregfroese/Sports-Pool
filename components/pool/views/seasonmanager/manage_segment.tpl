@@ -4,7 +4,7 @@
 <script type="text/javascript" src="/js/manageSegment.js"></script>
 {/literal}
 <link rel="stylesheet" href="/css/style.css" type="text/css">
-<h1>Manage Segment</h1>
+<h1>{$season->name}: {$segment->name}</h1>
 <a href="/seasonmanager/manage/{$season.id}">Back to segment list</a><br />
 <a href="/seasonmanager/editGame/{$segment.id}/0">Create new game</a>
 <table class="hor-zebra" id="hor-zebra">
