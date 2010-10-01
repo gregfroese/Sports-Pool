@@ -23,6 +23,7 @@ function index( $params = null ) {
 		$user = null;
 	}
 	$this->set( "user", $user );
+	
 }
 
 public function logout() {

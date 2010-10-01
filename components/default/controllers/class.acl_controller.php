@@ -1,4 +1,7 @@
 <?php
+
+namespace silk\auth;
+
 class AclController extends \silk\action\Controller {
 	public function index($params) {
 		$this->set("params", $params);
@@ -51,12 +54,13 @@ class AclController extends \silk\action\Controller {
 				if(!isset($_SESSION["silk_user"]["id"])) {
 					$config = load_config();
 					$acl_ids = array();
-					$acl = silk\auth\ACL::find_by_acl_type_and_acl_type_id("group", $config["anonymous_group_id"]);
+					$acl = \silk\auth\ACL::find_by_acl_type_and_acl_type_id("group", $config["anonymous_group_id"]);
 					if(!empty($acl)) {
 						$acl_ids[] = $acl->id;
 					}
 				} else {
-					$user = orm("user")->find_by_id($_SESSION["silk_user"]["id"]);
+//					$user = orm("user")->find_by_id($_SESSION["silk_user"]["id"]);
+					$user = silk\auth\UserSession::get_current_user();
 					
 					$acl_ids = array();
 					// get acl_ids for each group
