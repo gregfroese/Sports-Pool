@@ -19,8 +19,8 @@
 	      </td>
 	      <td>{$season.start_year} - {$season.end_year}</td>
 		  <td>
-		  	{foreach from=$season->seasonusers item="seasonuser"}
-		  		{$seasonuser->user->first_name} {$seasonuser->user->last_name}<br />
+		  	{foreach from=$season->users item="user"}
+		  		{$user.first_name} {$user.last_name}<br />
 		  	{/foreach}
 		  </td>
 		  <td>

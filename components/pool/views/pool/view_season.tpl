@@ -16,6 +16,7 @@
 		  		{link action="enterPicks" id=$segment->id text="Enter Picks"}
 		  	{/if}
 		  </td>
+		  <td>{link action="viewScores" id=$segment->id text="View Scores"}</td>
 		  <td>{link action="viewPicks" id=$segment->id text="View Picks"}</td>
 	   </tr>
 	{/strip}

@@ -19,7 +19,7 @@ class Season extends ActiveRecord {
     	$this->create_belongs_to_association( "status", "pool\Status", "status_id" );
     	$this->create_has_many_association( "seasonusers", "\pool\Seasonusers", "season_id" );
     	$this->create_has_many_association( "segments", "\pool\Segment", "season_id" );
-//      $this->create_has_and_belongs_to_many_association('categories', 'BlogCategory', 'blog_post_categories', 'category_id', 'post_id', array('order' => 'name ASC'));
+      	$this->create_has_and_belongs_to_many_association('users', '\silk\auth\User', 'seasonusers', 'user_id', 'season_id', array('order' => 'first_name, last_name ASC'));
     }
 
     public function isMember( $user ) {

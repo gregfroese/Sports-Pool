@@ -9,6 +9,7 @@
 				<td>id</td>
 				<td>Name</td>
 				<td>Usertype</td>
+				<td>Groups</td>
 				<td>Action</td>
 			</tr>
 		</thead>
@@ -18,6 +19,11 @@
 					<td>{$user.id}</td>
 					<td>{$user.first_name} {$user.last_name}</td>
 					<td>{$user.usertype_id}</td>
+					<td>
+						{foreach from=$user->groups item=group}
+							{$group->name}<br />
+						{/foreach}
+					</td>
 					<td><a href="/usermanager/edit/{$user.id}">Edit</a></td>
 				</tr>
 			{/foreach}

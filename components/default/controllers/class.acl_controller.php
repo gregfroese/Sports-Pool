@@ -1,7 +1,5 @@
 <?php
 
-namespace silk\auth;
-
 class AclController extends \silk\action\Controller {
 	public function index($params) {
 		$this->set("params", $params);
@@ -39,6 +37,9 @@ class AclController extends \silk\action\Controller {
 		$this->set("groups", silk\auth\Group::get_groups_for_dropdown(false));
 	}
 	
+	public static function something() {
+		
+	}
 	/**
 	 * Check if the current user has access to the given 
 	 *
@@ -49,8 +50,8 @@ class AclController extends \silk\action\Controller {
 		$config = load_config();
 		if(isset($config["acl"])) {
 			if($config["acl"] == true) {
-//				echo "Checking ACL<br />";
-//				echo "<pre>"; var_dump($params); echo "</pre>";
+				echo "Checking ACL<br />";
+				echo "<pre>"; var_dump($params); echo "</pre>";
 				if(!isset($_SESSION["silk_user"]["id"])) {
 					$config = load_config();
 					$acl_ids = array();

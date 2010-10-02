@@ -71,4 +71,28 @@ class PoolController extends \silk\action\Controller {
 		$this->set( "game", $game );
 		$this->set( "date", date( "Y-m-d H:i:s" ));
 	}
+	
+	public function viewScores( $params = array() ) {
+		$segment_id = $params["id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		$user = \silk\Auth\UserSession::get_current_user();
+		$this->set( "segment", $segment );
+		$this->set( "user", $user );
+	}
+	
+	public function viewPicks( $params = array() ) {
+		$segment_id = $params["id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		$user = \silk\Auth\UserSession::get_current_user();
+		$this->set( "segment", $segment );
+		$this->set( "currentUser", $user );
+		//create an array of the games for a display helper
+		$order_of_games = array();
+		$count = 0;
+		foreach( $segment->games as $game ) {
+			$count++;
+			$order_of_games[$count] = $game->id;
+		}
+		$this->set( "order_of_games", $order_of_games );
+	}
 }
