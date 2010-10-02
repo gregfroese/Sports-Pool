@@ -16,7 +16,6 @@
 		{* Now show the picks for each user if the current user's pick for that game is locked *}
 		{foreach from=$segment->season->users item="user"}
 			<tr class="{cycle values="even, odd"} picks">
-				{$count}
 				<td>{$user.first_name}</td>
 				{* now get their pick for each game *}
 				{assign var="count" value="0"}
@@ -31,9 +30,17 @@
 							{* or if the current user's pick is locked *}
 							{if $pick.user_id == $currentUser.id or $pick->status.name == "Locked"} 
 								{if $pick.team_id == -1}
-									Tie
+									{if $pick->status.name == "Locked"}
+										<div class="locked">Tie</div>
+									{else}
+										Tie
+									{/if}
 								{else}
-									{$pick->team.name}
+									{if $pick->status.name == "Locked"}
+										<div class="locked">{$pick->team.name}</div>
+									{else}
+										{$pick->team.name}
+									{/if}
 								{/if}
 							{else}
 								N/A: Lock your pick to see

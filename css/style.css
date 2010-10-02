@@ -3,6 +3,14 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	.locked
+	{
+		font-weight:bold;
+	}
+	.nopick
+	{
+		color: red;
+	}
 	.chosen
 	{
 		font-weight: bold;
