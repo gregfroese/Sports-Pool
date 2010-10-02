@@ -137,7 +137,76 @@ class SeasonmanagerController extends \silk\action\Controller {
 	
 	public function calculatePoints( $params ) {
 		$segment = \pool\Segment::find_by_id( $params["id"] );
-		var_dump( "need something to calc with", $segment ); die;
+		
+		
+		$closedGames = 0;
+		foreach( $segment->games as $game ) {
+			//only calc points for closed games
+			if( $game->status->name == "Closed" ) {
+				$closedGames++;
+				//have to lock all picks here in case the game was closed on the edit screen
+				$game->lockAllPicks();
+				//delete all the points already assigned for this game so we can recalc at any time
+				$game->deleteAllPoints();
+				//calculate the point difference - used for determining ties
+				$pointDiff = abs( $game->away_score - $game->home_score );
+				
+				echo $game->awayteam->name . "($game->away_id): $game->away_score vs " . $game->hometeam->name . "($game->home_id): $game->home_score<br />";
+				//find the winner
+				if( $game->home_score > $game->away_score + 3 ) { //home team wins
+					$winner = $game->home_id;
+					echo "Home wins!<br />";
+				} elseif( $game->away_score > $game->home_score + 3 ) { //away team wins
+					$winner = $game->away_id;
+					echo "Away wins!<br />";
+				} elseif( $pointDiff >=0 && $pointDiff <=3 ) { //tie
+					$winner = -1;
+					echo "Tie!<br />";
+				}
+				
+				//give out points
+				foreach( $segment->season->users as $user ) {
+					$pick = $game->getPick( $user );
+					echo "user: $user->first_name picked $pick->team_id<br />winner: $winner<br />";
+					$gamePoints = 0;
+					if( $pick->team_id == $winner ) {
+						$gamePoints = $game->modifier;
+						//double the points if the user correctly picked a tie
+						if( $winner == -1 ) {
+							$gamePoints = $gamePoints * 2;
+						}
+						echo "$user->first_name got it right - $gamePoints points<br />";
+					}
+					$points = new pool\Points();
+					$points->user_id = $user->id;
+					$points->game_id = $game->id;
+					$points->points = $gamePoints;
+					$points->save();
+				}
+			}
+		}
+		silk\action\Response::redirect_to_action( array( "controller"=>"seasonmanager", "action"=>"manageSegment", "id"=>$segment->season_id, "subid"=>$segment->id ));
+	}
+	
+	public function enterScores( $params = array() ) {
+		$segment_id = $params["id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		$user = \silk\Auth\UserSession::get_current_user();
+		$this->set( "segment", $segment );
+		$this->set( "currentUser", $user );
+	}
+	
+	public function saveScores( $params = array() ) {
+		$segment_id = $params["segment_id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		foreach( $segment->games as $game ) {
+			if( isset( $params["away_score"][$game->id]) && isset( $params["home_score"][$game->id] )) {
+				$game->away_score = $params["away_score"][$game->id];
+				$game->home_score = $params["home_score"][$game->id];
+				$game->save();
+			}
+		}
+		silk\action\Response::redirect_to_action( array( "controller"=>"seasonmanager", "action"=>"manageSegment", "id"=>$segment->season_id, "subid"=>$segment->id ));
 	}
 }
 ?>

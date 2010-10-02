@@ -60,6 +60,15 @@ class Game extends ActiveRecord {
     	$this->save(); 
     }
     
+	public function getPoints( $user = null ) {
+    	if( empty( $user )) {
+    		$user = \silk\Auth\UserSession::get_current_user();
+    	}
+    	$sql = "SELECT * FROM silk_points AS sp WHERE game_id = ? AND user_id = ?";
+    	$params = array( $this->id, $user->id );
+    	return \pool\Points::find_by_query( $sql, $params );
+    }
+    
     public function getPick( $user = null ) {
     	if( empty( $user )) {
     		$user = \silk\Auth\UserSession::get_current_user();
@@ -86,6 +95,19 @@ class Game extends ActiveRecord {
     	$pick = $this->getPick( $user );
     	$pick->status_id = 8; //locked
     	$pick->save();
+    }
+    
+    public function getAllPoints() {
+    	$sql = "SELECT * FROM silk_points WHERE game_id = ?";
+    	$params = array( $this->id );
+    	$points = \pool\Points::find_all_by_query( $sql, $params );
+    	return $points;
+    }
+    
+    public function deleteAllPoints() {
+    	foreach( $this->getAllPoints() as $points ) {
+    		$points->delete();
+    	}
     }
     
 	public function validate() {

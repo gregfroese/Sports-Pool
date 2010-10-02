@@ -42,3 +42,5 @@
 			</tr>
 	</table>
 </div>
+
+{render_partial template="view_picks.tpl" currentUser=$currentUser segment=$segment}

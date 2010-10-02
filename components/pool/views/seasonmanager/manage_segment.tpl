@@ -29,5 +29,8 @@
 </table>
 
 <div class="links">
-	{link component="pool" controller="seasonmanager" action="calculatePoints" id=$segment.id text="Calculate Points"}
+	<p>
+		{link component="pool" controller="seasonmanager" action="calculatePoints" id=$segment.id text="Calculate Points"}
+		{link component="pool" controller="seasonmanager" action="enterScores" id=$segment.id text="Enter Scores"}
+	</p>
 </div>

@@ -12,7 +12,7 @@ class PoolController extends \silk\action\Controller {
 	//	$seasons = \pool\Season::find_all_by_status_id( 1 ); //why doesn't this work?
 		$seasons = \pool\Season::find_all_by_query( "SELECT * FROM silk_seasons WHERE status_id=? ORDER BY id DESC", array( 1 ));
 		$this->set( "seasons", $seasons );
-		$this->set( "user", \silk\Auth\UserSession::get_current_user() );
+		$this->set( "currentUser", \silk\Auth\UserSession::get_current_user() );
 	}
 	
 	public function joinSeason( $params = array() ) {
@@ -78,6 +78,8 @@ class PoolController extends \silk\action\Controller {
 		$user = \silk\Auth\UserSession::get_current_user();
 		$this->set( "segment", $segment );
 		$this->set( "user", $user );
+		$this->set( "currentUser", $user );
+		$this->set( "order_of_games", $this->order_of_games( $segment ));
 	}
 	
 	public function viewPicks( $params = array() ) {
@@ -86,6 +88,10 @@ class PoolController extends \silk\action\Controller {
 		$user = \silk\Auth\UserSession::get_current_user();
 		$this->set( "segment", $segment );
 		$this->set( "currentUser", $user );
+		$this->set( "order_of_games", $this->order_of_games( $segment ));
+	}
+	
+	private function order_of_games( $segment ) {
 		//create an array of the games for a display helper
 		$order_of_games = array();
 		$count = 0;
@@ -93,6 +99,6 @@ class PoolController extends \silk\action\Controller {
 			$count++;
 			$order_of_games[$count] = $game->id;
 		}
-		$this->set( "order_of_games", $order_of_games );
+		return $order_of_games;
 	}
 }

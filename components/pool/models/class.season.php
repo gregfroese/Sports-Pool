@@ -26,10 +26,12 @@ class Season extends ActiveRecord {
     	$sql = "SELECT * FROM silk_seasonusers AS su WHERE season_id = ? AND user_id = ?";
     	$params = array( $this->id, $user->id );
     	$seasonuser = \pool\Seasonusers::find_by_query( $sql, $params );
+//    	var_dump( $sql, $params, $seasonuser );
     	if( !empty( $seasonuser )) {
-    		return true;
+//    		var_dump( $seasonuser );
+    		return $seasonuser;
     	}
-    	return false;
+    	return 0;
     }
     
     public function loadMember( $user ) {
