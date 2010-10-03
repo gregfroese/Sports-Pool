@@ -25,5 +25,20 @@ class Segment extends ActiveRecord {
 		if( empty($this->params["name"]) ) $this->add_validation_error("Segments must have a name.");
 //		if( intval($this->params["startYear"] < date("yyyy"))) $this->add_validation_error("Season cannot exist in the past.");
 	}
+	
+	public function getAverages() {
+		$avg = array();
+		$count = 0;
+		foreach( $this->games as $game ) {
+			if( $game->status->name == "Closed" ) {
+				$count++;
+				$avg["home"] = $avg["home"] + $game->home_score;
+				$avg["away"] = $avg["away"] + $game->away_score;
+			}
+		}
+		$avg["home"] = round( $avg["home"] / $count, 2 );
+		$avg["away"] = round( $avg["away"] / $count, 2 );
+		return $avg;
+	}
 }
 ?>

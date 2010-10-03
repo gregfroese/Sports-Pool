@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 <script type="text/javascript" src="/js/jquery.js"></script>
 
-<h1>View Scores</h1>
+<h1>{$segment->season.name}: {$segment.name} - View Scores</h1>
 
 <div id="scores" class="scores">
 	<table class="hor-zebra" id="hor-zebra">
@@ -36,9 +36,9 @@
 		{/foreach}
 			<tr>
 				<td colspan=2>Average</td>
-				<td>TODO: get average</td>
+				<td>{$average["away"]}</td>
 				<td></td>
-				<td>TODO: get average</td>
+				<td>{$average["home"]}</td>
 			</tr>
 	</table>
 </div>

@@ -15,8 +15,10 @@
 		</tr>
 		
 		{* Now show the picks for each user if the current user's pick for that game is locked *}
-		
+		{assign var="grandTotal" value=0}
+		{assign var="userCount" value=0}
 		{foreach from=$segment->season->users item="user"}
+			{assign var="userCount" value=$userCount + 1}
 			{assign var="totalPoints" value=0}
 			{if $currentUser.id == $user.id}
 				{assign var="class" value="currentUser"}
@@ -72,7 +74,9 @@
 					</td>
 				{/foreach}
 				<td>{$totalPoints}</td>
+				{assign var="grandTotal" value=$grandTotal + $totalPoints}
 			</tr>
 		{/foreach}
 	</table>
+	<div class="average">Average points per player: {$grandTotal / $userCount}</div>
 </div>

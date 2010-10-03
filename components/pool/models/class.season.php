@@ -62,5 +62,25 @@ class Season extends ActiveRecord {
 		$seasonuser = $this->loadMember( $user );
 		$seasonuser->delete();
 	}
+	
+	/**
+	 * Get an associative array of the number of points for each user in the pool
+	 * @param array $params
+	 */
+	public function getPoints( $params = array() ) {
+		$chartPoints = array();
+		foreach( $this->users as $user ) {
+			$points = 0;
+			foreach( $this->segments as $segment ) {
+				foreach( $segment->games as $game ) {
+					$gamePoints = $game->getPoints( $user );
+					$points = $points + $gamePoints->points;
+				}
+			}
+			$chartPoints[$user->first_name] = $points;
+		}
+		asort( $chartPoints );
+		return $chartPoints;
+	}
 }
 ?>

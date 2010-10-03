@@ -5,3 +5,4 @@ tmp/
 .settings/
 .project
 clear.cache.sh
+images/

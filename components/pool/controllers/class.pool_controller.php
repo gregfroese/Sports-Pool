@@ -34,6 +34,22 @@ class PoolController extends \silk\action\Controller {
 	public function viewSeason( $params = array() ) {
 		$season_id = $params["id"];
 		$season = \pool\Season::find_by_id( $season_id );
+		//create a chart
+		$chartPoints = $season->getPoints();
+		require_once( dirname(dirname(__FILE__)) . "/lib/libchart-1.2.1/libchart/classes/libchart.php" );
+		$chartFile = dirname(dirname(dirname(dirname(__FILE__)))) . "/images/charts/season_" . $season->id . ".png";
+		$webChartFile = "/images/charts/season_" . $season->id . ".png";
+		$chart = new HorizontalBarChart(500, 170);
+
+		$dataSet = new XYDataSet();
+		foreach( $chartPoints as $name=>$points ) {
+			$dataSet->addPoint( new Point( $name, $points ));
+		}
+		$chart->setDataSet($dataSet);
+	
+		$chart->setTitle("Points for " . $season->name );
+		$chart->render( $chartFile );
+		$this->set( "chart", $webChartFile ); 
 		$this->set( "season", $season );
 	}
 	
@@ -80,6 +96,7 @@ class PoolController extends \silk\action\Controller {
 		$this->set( "user", $user );
 		$this->set( "currentUser", $user );
 		$this->set( "order_of_games", $this->order_of_games( $segment ));
+		$this->set( "average", $segment->getAverages() );
 	}
 	
 	public function viewPicks( $params = array() ) {
@@ -100,5 +117,22 @@ class PoolController extends \silk\action\Controller {
 			$order_of_games[$count] = $game->id;
 		}
 		return $order_of_games;
+	}
+	
+	public function chart( $params = array() ) {
+		$file = dirname(dirname(__FILE__)) . "/lib/libchart-1.2.1/libchart/classes/libchart.php";
+		require_once( $file );
+		$chart = new HorizontalBarChart(500, 170);
+
+		$dataSet = new XYDataSet();
+		$dataSet->addPoint(new Point("/wiki/Instant_messenger", 50));
+		$dataSet->addPoint(new Point("/wiki/Web_Browser", 83));
+		$dataSet->addPoint(new Point("/wiki/World_Wide_Web", 142));
+		$chart->setDataSet($dataSet);
+	
+		$chart->setTitle("Most visited pages for www.example.com");
+		$chart->render("/tmp/demo2.png");
+		
+		die;
 	}
 }

@@ -22,3 +22,5 @@
 	{/strip}
 	{/foreach}
 </table>
+
+<img src="{$chart}" title="Chart" />
