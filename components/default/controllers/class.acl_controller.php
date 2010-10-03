@@ -6,7 +6,6 @@ class AclController extends \silk\action\Controller {
 	}
 	
 	public function acl($params) {
-//		echo "<pre>"; var_dump($params); echo "</pre>";
 		if( isset( $params["params"] ) ) $params = $params["params"];
 		if( isset( $params["input"] )) {
 			$this->set_ACL_ARO( $params );
@@ -46,12 +45,10 @@ class AclController extends \silk\action\Controller {
 	 * @param unknown_type $params
 	 */
 	public function allowed($params) {
-		$params["controller"] = camelize($params["controller"]) . "Controller";
+		$params["controller"] = camelize($params["controller"]) /*. "Controller"*/;
 		$config = load_config();
 		if(isset($config["acl"])) {
 			if($config["acl"] == true) {
-				echo "Checking ACL<br />";
-				echo "<pre>"; var_dump($params); echo "</pre>";
 				if(!isset($_SESSION["silk_user"]["id"])) {
 					$config = load_config();
 					$acl_ids = array();
@@ -60,9 +57,7 @@ class AclController extends \silk\action\Controller {
 						$acl_ids[] = $acl->id;
 					}
 				} else {
-//					$user = orm("user")->find_by_id($_SESSION["silk_user"]["id"]);
 					$user = silk\auth\UserSession::get_current_user();
-					
 					$acl_ids = array();
 					// get acl_ids for each group
 					foreach($user->groups as $group) {
@@ -72,7 +67,6 @@ class AclController extends \silk\action\Controller {
 						}
 					}
 				}
-//				echo "<pre>"; var_dump($acl_ids); echo "</pre>";
 				
 				$results = array();
 				$results = 	self::check_acl($params, $acl_ids, $results);
@@ -97,22 +91,17 @@ class AclController extends \silk\action\Controller {
 			// if no controller entry, there will be no function entry - default is to deny
 			return $results;
 		}
-//		echo "found controller aro: $params[controller]<br />";
 		$aro_function = silk\auth\ARO::find_by_aro_type_and_aro_name_and_parent_id("function", $params["action"], $aro_controller->id);
 		if(empty($aro_function)) {
 			// nothing found, default is to deny
 			return $results;
 		}
-//		echo "found function aro: $params[action]<pre>"; var_dump($aro_function); echo "</pre>";
-
 		$results = self::check_acl2($acl_ids, $aro_function->id, $results);
-//		echo "Results<pre>"; var_dump($results); echo "</pre>";
 		return $results;
 	}
 	
 	private function check_acl2($acl_ids, $aro_id, $results) {
 		foreach($acl_ids as $acl_id) {
-//			echo "looking for acl/aro: $acl_id/$aro_id<br />";
 			$acl_aro = silk\auth\AclAro::find_by_aro_id_and_acl_id($aro_id, $acl_id);
 			if(!empty($acl_aro)) {
 				if($acl_aro->access_type == 1) {
@@ -202,7 +191,6 @@ class AclController extends \silk\action\Controller {
 	}
 	
 	private function override_function_values($params) {
-//		echo "<pre>"; var_dump($params); echo "</pre>";
 		$updated_params = $params;
 		foreach( $params as $key => $value ) {
 			if( substr_count( $key, "___") == 2 ) {
