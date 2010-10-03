@@ -59,12 +59,12 @@
 										{$pick->team.name}
 									{/if}
 								{/if}
+								{if $points.id != ""}
+									<div class="points">{$points.points}</div>
+									{assign var="totalPoints" value=$totalPoints + $points.points}
+								{/if}
 							{else}
 								N/A: Lock your pick to see
-							{/if}
-							{if $points.id != ""}
-								<div class="points">{$points.points}</div>
-								{assign var="totalPoints" value=$totalPoints + $points.points}
 							{/if}
 						{else}
 							<div class="nopick">No pick</div>

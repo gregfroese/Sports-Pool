@@ -10,37 +10,40 @@
 {/if}
 
 <div id="content">
-	<form class="form" method="POST" action="">
-	  	<label for="username">Username</label>
-	    <div class="">
-	    <input type="text" value="{$user.username}" id="username" class="username" name="username">
-		</div>
-		<label for="first_name">First name</label>
+	{form action="saveUser" controller="usermanager" id=$user.id}
+		{hidden name="user_id" value=$user.id}
 		<div class="">
-	    <input type="text" value="{$user.first_name}" id="first_name" class="username" name="first_name">
+	  		<label class="block" for="username">Username</label>
+		    <input type="text" value="{$user.username}" id="username" class="username" name="username">
 		</div>
-		<label for="last_name">Last name</label>
 		<div class="">
-	    <input type="text" value="{$user.last_name}" id="last_name" class="username" name="last_name">
+			<label class="block" for="first_name">First name</label>
+		    <input type="text" value="{$user.first_name}" id="first_name" class="username" name="first_name">
 		</div>
-		 <label for="password">Password</label>
+		<div class="">
+			<label class="block" for="last_name">Last name</label>
+		    <input type="text" value="{$user.last_name}" id="last_name" class="username" name="last_name">
+		</div>
 	    <div class="">
+	    	<label class="block" for="password">Password</label>
 	    	<input type="password" value="" id="password" class="password" name="password">
 		</div>
-		<label for="password">Confirm Password</label>
-	    <div class="">
+		<div class="">
+			<label class="block" for="password">Confirm Password</label>
 	    	<input type="password" value="" id="password" class="password" name="confirm_password">
 		</div>
 		<div class="">
-			<select id="usertype_id" name="usertype_id">
-				<option value="0">Select a usertype</option>
-				{foreach from=$usertypes key=key item=usertype}
-					<option {if $user.usertype_id == $usertype.id}selected{/if} value="{$usertype.id}">{$usertype.name}</option>
-				{/foreach}
-			</select>
+			<h2>Member of:</h2>
+			<ol>
+			{foreach from=$user->groups item="group"}
+				<li>{$group.name} - {link controller="usermanager" action="deleteMember" group_id=$group.id user_id=$user.id text="Delete"}</li>
+			{/foreach}
+			</ol>
+			<h2>Add to Group</h2>
+			{html_options name="group_id" options=$allGroups}
 		</div>
 		<div class="">
-		<input type="submit" class="buttons" value="Submit" name="Submit">
+			<input type="submit" class="buttons" value="Submit" name="Submit">
 		</div>
-	</form>
+	{/form}
 </div>

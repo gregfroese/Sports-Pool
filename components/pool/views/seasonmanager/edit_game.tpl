@@ -14,7 +14,7 @@
 		<input type="hidden" value="1" name="save">
 		<input type="hidden" value="{$segment.id}" name="segment_id">
 		<div>
-		  	<label class="editGame" for="awayteam">Away Team ({$game.away_id})</label>
+		  	<label class="block" for="awayteam">Away Team ({$game.away_id})</label>
 	    	<select id="away_id" name="away_id">
 	    		<option value="0">Select away team</option>
 	    		{foreach from=$teams key=key item=team}
@@ -23,11 +23,11 @@
 	    	</select>
 		</div>
 		<div>
-			<label class="editGame" for"awayscore">Away Score</label>
+			<label class="block" for"awayscore">Away Score</label>
 			<input type="text" value="{$game.away_score}" name="away_score" id="away_score" />
 		</div>
 		<div>	
-			<label class="editGame" for="hometeam">Home Team</label>
+			<label class="block" for="hometeam">Home Team</label>
 	    	<select id="home_id" name="home_id">
 	    		<option value="0">Select home team</option>
 	    		{foreach from=$teams key=key item=team}
@@ -36,11 +36,11 @@
 	    	</select>
 		</div>
 		<div>
-			<label class="editGame" for"homescore">Home Score</label>
+			<label class="block" for"homescore">Home Score</label>
 			<input type="text" value="{$game.home_score}" name="home_score" id="home_score" />
 		</div>
 		<div class="">
-			<label class="editGame"></label>
+			<label class="block"></label>
 			<select id="status_id" name="status_id">
 				<option value="0">Select a status</option>
 				{foreach from=$statuses key=key item=status}
@@ -49,19 +49,19 @@
 			</select>
 		</div>
 		<div>
-			<label class="editGame" for"modifier">Modifier</label>
+			<label class="block" for"modifier">Modifier</label>
 			<input type="text" value="{$game.modifier}" name="modifier" id="modifier" />
 		</div>
 		<div>
-			<label class="editGame" for"notes">Notes</label>
+			<label class="block" for"notes">Notes</label>
 			<textarea rows="5" cols="80" name="notes" id="notes">{$game.notes}</textarea>
 		</div>
 		<div>
-			<label class="editGame" for"start_date">Start Date</label>
+			<label class="block" for"start_date">Start Date</label>
 			<input type="text" value="{$game.start_date}" name="start_date" id="start_date" />
 		</div>
 		<div>
-			<label class="editGame" for"end_date">End Date</label>
+			<label class="block" for"end_date">End Date</label>
 			<input type="text" value="{$game.end_date}" name="end_date" id="end_date" />
 		</div>
 		<div class="">

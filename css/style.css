@@ -3,7 +3,7 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
-	label.editGame {
+	label.block {
 		display:block;
 		float:left;
 		margin-right:0;
