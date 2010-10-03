@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>Segments for {$season.name}</h1>
 
 {link action='index' text='Back to season list'}<br />

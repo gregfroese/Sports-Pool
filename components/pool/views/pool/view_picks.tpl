@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-<script type="text/javascript" src="/js/jquery.js"></script>
-
 <h1>View Picks</h1>
 
 <div id="scores" class="scores">

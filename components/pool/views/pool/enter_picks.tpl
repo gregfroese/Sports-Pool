@@ -1,7 +1,3 @@
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-<script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/enterPicks.js"></script>
-
 <h1>Season: {$segment->season.name} - {$segment->name}</h1>
 <table class="hor-zebra" id="hor-zebra">
 	<tr>

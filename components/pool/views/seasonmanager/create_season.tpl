@@ -1,22 +1,3 @@
-{literal}
-	<style type="text/css">
-		div.autoform div { clear: both }
-		div.autoform label.block{
-	        display: block;
-	        width: 120px;
-	        _width: 150px;
-	        float: left;
-	        margin-right: 0px;
-	        padding: 5px 0px 3px 0px;
-		}
-		label.label {
-			padding: 20px;
-		}
-		label.data {
-		}
-
-	</style>
-{/literal}
 {if $savedSeason eq ""}
 	<h1>Create a new season</h1>
 

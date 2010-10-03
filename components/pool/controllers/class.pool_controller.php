@@ -118,21 +118,4 @@ class PoolController extends \silk\action\Controller {
 		}
 		return $order_of_games;
 	}
-	
-	public function chart( $params = array() ) {
-		$file = dirname(dirname(__FILE__)) . "/lib/libchart-1.2.1/libchart/classes/libchart.php";
-		require_once( $file );
-		$chart = new HorizontalBarChart(500, 170);
-
-		$dataSet = new XYDataSet();
-		$dataSet->addPoint(new Point("/wiki/Instant_messenger", 50));
-		$dataSet->addPoint(new Point("/wiki/Web_Browser", 83));
-		$dataSet->addPoint(new Point("/wiki/World_Wide_Web", 142));
-		$chart->setDataSet($dataSet);
-	
-		$chart->setTitle("Most visited pages for www.example.com");
-		$chart->render("/tmp/demo2.png");
-		
-		die;
-	}
 }

@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>Season: {$season.name}</h1>
 <table class="hor-zebra" id="hor-zebra">
 	<tr>

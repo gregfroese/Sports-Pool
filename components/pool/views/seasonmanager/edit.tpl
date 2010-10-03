@@ -1,7 +1,5 @@
-{* Smarty *}
 <h1>Season Manager: {if $params["name"] ne ""}Edit{else}Create{/if}</h1>
 {link action='index' text='Back to season list'}
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 {if $message ne ""}
 	<div class="message">{$message}</div>
 {/if}

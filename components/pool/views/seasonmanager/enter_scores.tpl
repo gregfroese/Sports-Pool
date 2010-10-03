@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-<script type="text/javascript" src="/js/jquery.js"></script>
-
 <h1>Enter Scores: {$segment->season.name} - {$segment->name}</h1>
 {form action="saveScores" controller="seasonmanager"}
 	{hidden name="segment_id" value=$segment.id}

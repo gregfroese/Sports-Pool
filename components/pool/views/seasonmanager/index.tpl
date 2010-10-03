@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>List Teams</h1>
 
 {link action='edit' text='Create new season'}

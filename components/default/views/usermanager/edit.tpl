@@ -1,7 +1,6 @@
 {* Smarty *}
 <h1>User Manager - Edit/Create User</h1>
 <a href="/usermanager">Back to user list</a>
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 {if $message ne ""}
 	<div class="message">{$message}</div>
 {/if}

@@ -1,7 +1,5 @@
-{* Smarty *}
 <h1>Segment Manager: {if $segment.name ne ""}Edit{else}Create{/if}</h1>
 <a href="/seasonmanager/manage/{$season.id}">Back to Manage Season</a>
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 {if $message ne ""}
 	<div class="message">{$message}</div>
 {/if}

@@ -1,6 +1,5 @@
 {* Smarty *}
 <h1>Homepage</h1>
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 {if $error ne ""}
 	<div class="error">{$error}</div>
 {/if}

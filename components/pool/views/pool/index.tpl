@@ -1,5 +1,3 @@
-{* Smarty *}
-<link rel="stylesheet" href="/css/style.css" type="text/css">
 <h1>Active Pools</h1>
 <table class="hor-zebra" id="hor-zebra">
 	<tr>
