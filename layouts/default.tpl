@@ -11,9 +11,10 @@
 	<script type="text/javascript" src="/js/manageSegment.js"></script>
 </head>
 <body>
-<div class="left">
+<div class="menu">
 	{run_action controller="menu" action="index" assign="menu"}
 </div>
+<div id="clear" class="clear"></div>
 <div class="content">
 	{$content}
 </div>
