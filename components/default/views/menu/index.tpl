@@ -1,9 +1,3 @@
-<div class="menu">
-	{if $user.id != ""}
-		<div class="login">Logged in as: {$user.first_name} {$user.last_name}</div>
-	{/if}
-</div>
-
 <link href="/css/menus/css/dropdown/themes/default/helper.css" media="screen" rel="stylesheet" type="text/css" />
 
 <link href="/css/menus/css/dropdown/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
