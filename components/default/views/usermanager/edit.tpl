@@ -15,22 +15,27 @@
 	  		<label class="block" for="username">Username</label>
 		    <input type="text" value="{$user.username}" id="username" class="username" name="username">
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<label class="block" for="first_name">First name</label>
 		    <input type="text" value="{$user.first_name}" id="first_name" class="username" name="first_name">
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<label class="block" for="last_name">Last name</label>
 		    <input type="text" value="{$user.last_name}" id="last_name" class="username" name="last_name">
 		</div>
+		<div class="clear"></div>
 	    <div class="">
 	    	<label class="block" for="password">Password</label>
 	    	<input type="password" value="" id="password" class="password" name="password">
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<label class="block" for="password">Confirm Password</label>
 	    	<input type="password" value="" id="password" class="password" name="confirm_password">
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<h2>Member of:</h2>
 			<ol>
@@ -41,6 +46,7 @@
 			<h2>Add to Group</h2>
 			{html_options name="group_id" options=$allGroups}
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<input type="submit" class="buttons" value="Submit" name="Submit">
 		</div>

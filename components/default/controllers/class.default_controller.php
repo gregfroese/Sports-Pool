@@ -18,6 +18,8 @@ function index( $params = null ) {
 		}
 	}
 	if( \silk\auth\UserSession::is_logged_in() ) {
+		//just redirect to the main pool page
+		\silk\action\Response::redirect_to_action( array( "controller"=>"pool", "action"=>"index" ));
 		$user = \silk\auth\UserSession::get_current_user();
 	} else {
 		$user = null;
