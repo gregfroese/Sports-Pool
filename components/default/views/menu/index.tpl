@@ -64,4 +64,5 @@
 			<li>Logged in as: {$user.first_name} {$user.last_name}</li>
 		{/if}
 	{/if}
+	{run_action controller="menu" action="admin"}
 </ul>
