@@ -27,3 +27,21 @@
 	{/strip}
 	{/foreach}
 </table>
+
+<h2>Bonus Questions</h2>
+<table id="hor-zebra" class="hor-zebra">
+	<tr>
+		<th>ID</th>
+		<th>Question</th>
+		<th>Modifier</th>
+		<th>Response</th>
+	</tr>
+	{foreach from=$segment->bonus item="bonus"}
+		<tr>
+			<td>{$bonus.id}</td>
+			<td>{$bonus.question}</td>
+			<td>{$bonus.modifier}</td>
+			<td>do this</td>
+		</tr>
+	{/foreach}
+</table>

@@ -24,36 +24,6 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$sports = \pool\Sport::find_all_by_query( "select * from silk_sports order by name asc" );
 		$this->set( "sports", $sports );
 		$this->set( "params", $params );
-			
-		/* old code, no idea how much of it works
-		 * 
-//		$fields = array( "	end_year" => array( "visible" => "none" ),
-//							"id" => array( "visible" => "yes") );
-		$fields = array(
-			"end_year" => array("label" => "Label override")
-		);
-		$form_params = array( 	"controller" => "season_manager",
-								"method" => "editSeason_save",
-								"action" => "editSeason_save",
-								"submitValue" => "Save Changes",
-								"fields" => $fields);
-
-//		echo "<pre>"; var_dump($params); echo "</pre>";
-
-		if( $params["input"] == $form_params["submitValue"] ) {
-			//process the save
-			//show result
-			$this->set("form", orm('season')->data_table($form_params), null);
-			return;
-		}
-
-		$season = orm('season');
-		$one_season = $season->find_all(array("conditions" => array("id = ".$params["id"])));
-//		echo "<pre>"; var_dump($one_season); echo "</pre>";
-
-		$result = SilkForm::auto_form($form_params, $one_season);
-		$this->set("form", $result);
-		*/
 	}
 	
 	public function manage( $params = array() ) {
@@ -207,6 +177,45 @@ class SeasonmanagerController extends \silk\action\Controller {
 			}
 		}
 		silk\action\Response::redirect_to_action( array( "controller"=>"seasonmanager", "action"=>"manageSegment", "id"=>$segment->season_id, "subid"=>$segment->id ));
+	}
+	
+	public function editBonus( $params = array() ) {
+		$segment_id = $params["id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		$user = \silk\Auth\UserSession::get_current_user();
+		$statuses = \pool\Status::find_all_by_query( "SELECT * FROM silk_status WHERE category=? ORDER BY id ASC", array( "bonus" ));
+		if( empty( $params["bonus_id"] )) {
+			$bonus = new \pool\Bonus();
+		} else {
+			$bonus = \pool\Bonus::find_by_id( $params["bonus_id"] );
+		}
+		$this->set( "bonus", $bonus );
+		$this->set( "statuses", $statuses );
+		$this->set( "segment", $segment );
+		$this->set( "currentUser", $user );
+	}
+	
+	public function saveBonus( $params = array() ) {
+		$segment_id = $params["segment_id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		if( empty( $params["bonus_id"] )) {
+			$bonus = new \pool\Bonus();
+			$bonus->update_parameters( $params );
+		} else {
+			$bonus = \pool\Bonus::find_by_id( $params["bonus_id"] );
+			$bonus->update_parameters( $params );
+			$bonus->id = $params["bonus_id"]; //id is overwritten here so we'll reset it
+		}
+		$bonus->save();
+		\silk\action\Response::redirect_to_action( array( "controller"=>"seasonmanager", "action"=>"manageSegment", "id"=>$segment->season_id, "subid"=>$segment->id ));
+	}
+	
+	public function markBonusWinners( $params = array() ) {
+		$segment_id = $params["segment_id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		$bonus = \pool\Bonus::find_by_id( $params["bonus_id"] );
+		$this->set( "segment", $segment );
+		$this->set( "bonus", $bonus );
 	}
 }
 ?>

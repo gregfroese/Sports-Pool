@@ -28,3 +28,5 @@
 		{link component="pool" controller="seasonmanager" action="enterScores" id=$segment.id text="Enter Scores"}
 	</p>
 </div>
+
+{render_partial template="bonus_list.tpl" segment=$segment}
