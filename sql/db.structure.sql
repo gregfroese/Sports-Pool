@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 03, 2010 at 11:03 PM
+-- Generation Time: Oct 09, 2010 at 01:33 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `silk_ACL_ARO` (
   `acl_id` int(11) NOT NULL,
   `access_type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=925 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1491 ;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,41 @@ CREATE TABLE IF NOT EXISTS `silk_ARO` (
   `parent_id` int(11) NOT NULL,
   `item_order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `silk_bonus`
+--
+
+CREATE TABLE IF NOT EXISTS `silk_bonus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `segment_id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `modifier` float NOT NULL DEFAULT '1',
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `season_segment_id` (`segment_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `silk_bonusresponses`
+--
+
+CREATE TABLE IF NOT EXISTS `silk_bonusresponses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bonus_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `response` text NOT NULL,
+  `value` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `bonus_id` (`bonus_id`,`user_id`,`value`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -199,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `silk_status` (
   `name` varchar(255) NOT NULL,
   `active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
