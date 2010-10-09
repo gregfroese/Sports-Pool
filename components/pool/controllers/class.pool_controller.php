@@ -58,6 +58,7 @@ class PoolController extends \silk\action\Controller {
 		$segment = \pool\Segment::find_by_id( $segment_id );
 		$this->set( "segment", $segment );
 		$this->set( "date", date( "Y-m-d H:i:s" ));
+		$this->set( "user", \silk\auth\UserSession::get_current_user() );
 	}
 	
 	public function pickTeam( $params = array() ) {
@@ -117,5 +118,20 @@ class PoolController extends \silk\action\Controller {
 			$order_of_games[$count] = $game->id;
 		}
 		return $order_of_games;
+	}
+	
+	/**
+	 * Ajax function to save a bonus response
+	 * @param unknown_type $params
+	 */
+	public function saveBonus( $params = array() ) {
+		$this->show_layout = false;
+		$bonus_id = $params["bonus_id"];
+		$user = \silk\auth\User::find_by_id( $params["user_id"] );
+		$bonus = \pool\Bonus::find_by_id( $bonus_id );
+		$bonus->saveResponse( $params["response"], $user );
+		$this->set( "bonus", $bonus );
+		$this->set( "date", date( "Y-m-d H:i:s" ));
+		$this->set( "user", \silk\Auth\UserSession::get_current_user() );
 	}
 }

@@ -3,6 +3,18 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	div.picksContainer {
+		padding: 10px 0px 20px 10px;
+		border: 1px solid;
+		width: 820px;
+		margin: 5px;
+	}
+	div.bonusContainer {
+		padding: 10px 0px 20px 10px;
+		border: 1px solid;
+		width: 820px;
+		margin: 5px;
+	}
 	label.block {
 		display:block;
 		float:left;

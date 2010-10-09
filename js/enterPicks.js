@@ -33,3 +33,16 @@ function reopenGame( game_id ) {
 	$(".gameStatus_" + game_id).load( link );
 	return false;
 }
+
+function saveBonus( user_id, bonus_id ) {
+	var response = $("#response_"+bonus_id).val();
+	$.post("/pool/saveBonus", { user_id: user_id, bonus_id: bonus_id, response: response },
+			   function(data){
+//			     alert("Data Loaded: " + data);
+			     $(".bonus_"+bonus_id).html(data);
+			   });
+	return false;
+	$.post('/pool/saveBonus', function(data) {
+		  $('.result').html(data);
+		});
+}

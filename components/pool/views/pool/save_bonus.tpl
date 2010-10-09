@@ -1,0 +1,1 @@
+{render_partial template="bonus_detail.tpl" bonus=$bonus currentDate=$currentDate}
