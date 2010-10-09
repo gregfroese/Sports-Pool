@@ -1,0 +1,1 @@
+{render_partial template="bonus_response.tpl" response=$response}

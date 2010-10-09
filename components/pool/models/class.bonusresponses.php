@@ -4,7 +4,7 @@ namespace pool;
 use \silk\orm\ActiveRecord;
 
 class Bonusresponses extends ActiveRecord {
-	var $table = "bonus";
+	var $table = "bonusresponses";
 
 	function __construct()
     {
@@ -14,6 +14,7 @@ class Bonusresponses extends ActiveRecord {
     function setup()
     {
     	$this->create_belongs_to_association( "user", "silk\auth\User", "user_id", array() );
+    	$this->create_belongs_to_association( "bonus", "\pool\Bonus", "bonus_id", array() );
     }
     
 	public function validate() {

@@ -1,3 +1,4 @@
+
 <h2>Mark Bonus Winners</h2>
 <table id="hor-zebra" class="hor-zebra">
 	<tr>
@@ -6,6 +7,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Answer</th>
+					<th>Points</th>
 					<th>Action</th>
 				</tr>
 			</table>

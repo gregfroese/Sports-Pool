@@ -72,12 +72,15 @@ class Season extends ActiveRecord {
 		foreach( $this->users as $user ) {
 			$points = 0;
 			foreach( $this->segments as $segment ) {
+				//regular points
 				foreach( $segment->games as $game ) {
 					$gamePoints = $game->getPoints( $user );
 //					if( !empty( $gamePoints->points )) {
 						$points = $points + $gamePoints->points;
 //					}
 				}
+				//bonus points (if any)
+				$points = $points + $segment->getBonusPoints( $user );
 			}
 			$chartPoints[$user->first_name] = $points;
 		}

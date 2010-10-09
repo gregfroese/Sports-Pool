@@ -211,11 +211,39 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function markBonusWinners( $params = array() ) {
-		$segment_id = $params["segment_id"];
+		$segment_id = $params["id"];
 		$segment = \pool\Segment::find_by_id( $segment_id );
 		$bonus = \pool\Bonus::find_by_id( $params["bonus_id"] );
+//		var_dump( $bonus );
+//		var_dump( $bonus->responses ); die;
 		$this->set( "segment", $segment );
 		$this->set( "bonus", $bonus );
+	}
+	
+	/**
+	 * Ajax function to mark a bonus response as being correct
+	 * @param unknown_type $params
+	 */
+	public function winner( $params = array() ) {
+		$this->show_layout = false;
+		$response_id = $params["id"];
+		$response = \pool\Bonusresponses::find_by_id( $response_id );
+		$response->value = $response->bonus->modifier;
+		$response->save();
+		$this->set( "response", $response );		
+	}
+	
+/**
+	 * Ajax function to mark a bonus response as being incorrect
+	 * @param unknown_type $params
+	 */
+	public function loser( $params = array() ) {
+		$this->show_layout = false;
+		$response_id = $params["id"];
+		$response = \pool\Bonusresponses::find_by_id( $response_id );
+		$response->value = 0;
+		$response->save();
+		$this->set( "response", $response );		
 	}
 }
 ?>

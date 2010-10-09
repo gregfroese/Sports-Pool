@@ -41,5 +41,18 @@ class Segment extends ActiveRecord {
 		$avg["away"] = round( $avg["away"] / $count, 2 );
 		return $avg;
 	}
+	
+	public function getBonusPoints( $user ) {
+		foreach( $this->bonus as $bonus ) {		
+			$sql = "SELECT * FROM silk_bonusresponses AS br WHERE user_id = ? AND bonus_id = ?";
+			$params = array( $user->id, $bonus->id );
+			$bonusReponses = \pool\Bonusresponses::find_all_by_query( $sql, $params );
+			$points = 0;
+			foreach( $bonusReponses as $br ) {
+				$points = $points + $br->value;
+			}
+			return $points;
+		}
+	}
 }
 ?>

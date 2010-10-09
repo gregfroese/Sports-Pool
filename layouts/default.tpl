@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/enterPicks.js"></script>
 	<script type="text/javascript" src="/js/manageSegment.js"></script>
+	<script type="text/javascript" src="/js/bonus.js"></script>
 </head>
 <body>
 <div class="menu">

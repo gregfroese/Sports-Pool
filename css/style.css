@@ -36,6 +36,31 @@ body {
 	        text-align: left;
 	        border-collapse: collapse;
 	}
+	#bonus
+	{
+	        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	        font-size: 12px;
+	        margin: 0px 0px 0px 0px;
+	        width: 800px;
+	        text-align: left;
+	        border-collapse: collapse;
+	}
+	#bonus th
+	{
+	        font-size: 14px;
+	        font-weight: normal;
+	        padding: 5px 8px;
+	        color: #039;
+	}
+	#bonus td
+	{
+	        padding: 1px;
+	        width: 150px;
+	}
+	#bonus .odd
+	{
+	        background: #e8edff;
+	}
 /* table with alternating rows */
 	#hor-zebra
 	{
