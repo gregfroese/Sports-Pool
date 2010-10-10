@@ -1,5 +1,8 @@
 <p></p>
 <h2>View Picks</h2>
+{if $segment->status->id == 3}
+  	{link action="enterPicks" id=$segment->id text="Enter Picks"}
+  {/if}
 
 <div id="scores" class="scores">
 	<table class="hor-zebra" id="hor-zebra">

@@ -25,8 +25,10 @@
 					{if $game->status.name == "Closed"}
 						{$game.notes}
 					{else}
-						{$game.notes}<br />
 						Not included in average
+						{if $game.notes == ""}
+							<br />{$game.notes}
+						{/if}
 					{/if}
 				</td>
 			</tr>

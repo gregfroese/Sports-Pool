@@ -1,4 +1,5 @@
 <h1>Season: {$segment->season.name} - {$segment->name}</h1>
+{link action="viewScores" id=$segment->id text="View Scores"}
 <div class="picksContainer">
 	<table class="hor-zebra" id="hor-zebra">
 		<tr>
