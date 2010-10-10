@@ -62,6 +62,7 @@ class PoolController extends \silk\action\Controller {
 	}
 	
 	public function pickTeam( $params = array() ) {
+		$this->show_layout = false;
 		$game_id = $params["id"];
 		$game = \pool\Game::find_by_id( $game_id );
 		$team_id = $params["subid"];
@@ -72,6 +73,7 @@ class PoolController extends \silk\action\Controller {
 	}
 	
 	public function lockPick( $params = array() ) {
+		$this->show_layout = false;
 		$game_id = $params["id"];
 		$game = \pool\Game::find_by_id( $game_id );
 		$user = \silk\Auth\UserSession::get_current_user();
@@ -80,6 +82,7 @@ class PoolController extends \silk\action\Controller {
 	}
 	
 	public function pickTie( $params = array() ) {
+		$this->show_layout = false;
 		$game_id = $params["id"];
 		$game = \pool\Game::find_by_id( $game_id );
 		$team_id = -1;
