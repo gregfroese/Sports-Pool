@@ -1,4 +1,4 @@
-<div class="bonus">
+<div class="bonus picksContainer">
 	<h2>Bonus questions</h2>
 	{link controller="seasonmanager" action="editBonus" id=$segment.id text="Create new bonus"}
 	

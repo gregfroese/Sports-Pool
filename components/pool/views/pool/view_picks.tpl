@@ -1,4 +1,5 @@
-<h1>View Picks</h1>
+<p></p>
+<h2>View Picks</h2>
 
 <div id="scores" class="scores">
 	<table class="hor-zebra" id="hor-zebra">
@@ -6,7 +7,7 @@
 		<tr>
 			<th>User</th>
 			{foreach from=$segment->games item="game"}
-				<th>{$game.id}: {$game->awayteam.name} vs {$game->hometeam.name}</th>
+				<th class="center"><div class="team">{$game->awayteam.name}</div><div style="color: red">vs</div><div class="team">{$game->hometeam.name}</div></th>
 			{/foreach}
 			<th>Total</th>
 		</tr>
@@ -22,7 +23,7 @@
 			{else}
 				{assign var="class" value=""}
 			{/if}
-			<tr class="{cycle values="even, odd"} picks {$class}">
+			<tr class="{cycle values="even,odd"} {$class}">
 				<td>
 					{if $currentUser.id == $user.id}
 						<div class="currentUser">{$user.first_name}</div>
@@ -40,37 +41,42 @@
 					
 					{* have to make sure we display the picks in the right column for each game *}
 					{* important if the user has skipped making a pick for a game *}
-					<td>
+					<td class="picks">
 						{if $pick.game_id == $order_of_games[$count]}
 							{* show the picks if they belong to the current user *}
 							{* or if the current user's pick is locked *}
 							{if $pick.user_id == $currentUser.id or $userPick->status.name == "Locked"} 
 								{if $pick.team_id == -1}
 									{if $pick->status.name == "Locked"}
-										<div class="locked">Tie</div>
+										<div class="locked center">Tie</div>
 									{else}
-										Tie
+										<div class="center">Tie</div>
 									{/if}
 								{else}
 									{if $pick->status.name == "Locked"}
-										<div class="locked">{$pick->team.name}</div>
+										<div class="locked center">{$pick->team.name}</div>
 									{else}
-										{$pick->team.name}
+										<div class="center">{$pick->team.name}</div>
 									{/if}
 								{/if}
 								{if $points.id != ""}
-									<div class="points">{$points.points}</div>
+									{if $points.points > 0}
+										{assign var="class" value="green"}
+									{else}
+										{assign var="class" value="red"}
+									{/if}
+									<div class="points center {$class}">{$points.points}</div>
 									{assign var="totalPoints" value=$totalPoints + $points.points}
 								{/if}
 							{else}
 								N/A: Lock your pick to see
 							{/if}
 						{else}
-							<div class="nopick">No pick</div>
+							<div class="nopick center">No pick</div>
 						{/if}
 					</td>
 				{/foreach}
-				<td>{$totalPoints}</td>
+				<td class="center">{$totalPoints}</td>
 				{assign var="grandTotal" value=$grandTotal + $totalPoints}
 			</tr>
 		{/foreach}

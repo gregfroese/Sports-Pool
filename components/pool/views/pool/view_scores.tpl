@@ -1,6 +1,6 @@
 <h1>{$segment->season.name}: {$segment.name} - View Scores</h1>
 
-<div id="scores" class="scores">
+<div id="scores" class="picksContainer">
 	<table class="hor-zebra" id="hor-zebra">
 		<tr>
 			<th>Game ID</th>

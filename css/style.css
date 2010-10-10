@@ -3,6 +3,12 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	div.scores {
+		border: 1px solid;
+		padding: 10px 0px 20px 10px;
+		margin: 5px;
+		display: table;
+	}
 	div.picksContainer {
 		padding: 10px 0px 20px 10px;
 		border: 1px solid;
@@ -29,6 +35,19 @@ body {
 	.locked
 	{
 		font-weight:bold;
+	}
+	.center {
+		text-align: center;
+		margin: 0 auto;
+	}
+	.green {
+		color: green;
+	}
+	.red {
+		color: red;
+	}
+	.team {
+		font-size: 10px;
 	}
 	.nopick
 	{
