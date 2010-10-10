@@ -86,6 +86,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function closeGame( $params = array() ) {
+		$this->show_layout = false;
 		$game_id = $params["id"];
 		$game = Game::find_by_id( $game_id );
 		$game->closeGame();
@@ -93,6 +94,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function reopenGame( $params = array() ) {
+		$this->show_layout = false;
 		$game_id = $params["id"];
 		$game = Game::find_by_id( $game_id );
 		$game->reopenGame();
@@ -107,8 +109,6 @@ class SeasonmanagerController extends \silk\action\Controller {
 	
 	public function calculatePoints( $params ) {
 		$segment = \pool\Segment::find_by_id( $params["id"] );
-		
-		
 		$closedGames = 0;
 		foreach( $segment->games as $game ) {
 			//only calc points for closed games
