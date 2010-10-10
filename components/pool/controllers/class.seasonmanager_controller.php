@@ -110,6 +110,9 @@ class SeasonmanagerController extends \silk\action\Controller {
 	
 	public function calculatePoints( $params ) {
 		$segment = \pool\Segment::find_by_id( $params["id"] );
+		//remove all points from the segment - don't worry, they're all re-calculated
+		//this is necessary in case a game is re-opened
+		$segment->deletePoints();
 		$closedGames = 0;
 		foreach( $segment->games as $game ) {
 			//only calc points for closed games
