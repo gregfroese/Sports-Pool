@@ -102,6 +102,7 @@ class SeasonmanagerController extends \silk\action\Controller {
 	}
 	
 	public function getStatus( $params = array() ) {
+		$this->show_layout = false;
 		$game_id = $params["id"];
 		$game = Game::find_by_id( $game_id );
 		$this->set( "game", $game );
