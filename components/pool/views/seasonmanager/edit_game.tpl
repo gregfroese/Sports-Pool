@@ -58,11 +58,11 @@
 		</div>
 		<div>
 			<label class="block" for"start_date">Start Date</label>
-			<input type="text" value="{$game.start_date}" name="start_date" id="start_date" />
+			<input type="text" class="datepicker" value="{$game.start_date}" name="start_date" id="start_date" />
 		</div>
 		<div>
 			<label class="block" for"end_date">End Date</label>
-			<input type="text" value="{$game.end_date}" name="end_date" id="end_date" />
+			<input type="text" class="datepicker" value="{$game.end_date}" name="end_date" id="end_date" />
 		</div>
 		<div class="">
 			<input type="submit" class="buttons" value="Submit" name="Submit">

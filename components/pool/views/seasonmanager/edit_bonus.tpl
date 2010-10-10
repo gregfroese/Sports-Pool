@@ -28,12 +28,12 @@
 	<div id="clear" class="clear"></div>
 	<div>
 		<label class="block">Start Date</label>
-		{textbox name="start_date" value="{$bonus.start_date}"}
+		{textbox name="start_date" value="{$bonus.start_date}" class="datepicker"}
 	</div>
 	<div id="clear" class="clear"></div>
 	<div>
 		<label class="block">End Date</label>
-		{textbox name="end_date" value="{$bonus.end_date}"}
+		{textbox name="end_date" value="{$bonus.end_date}" class="datepicker"}
 	</div>
 	<div id="clear" class="clear"></div>
 	<div>

@@ -7,8 +7,9 @@
 	<title>Default: {$title}</title>
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
 	<link rel="stylesheet" href="/js/anytime/anytime.css" type="text/css">
-	<script type="text/javascript" src="/js/anytime/anytime.js"></script>
 	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/anytime/anytimec.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/enterPicks.js"></script>
 	<script type="text/javascript" src="/js/manageSegment.js"></script>
 	<script type="text/javascript" src="/js/bonus.js"></script>
