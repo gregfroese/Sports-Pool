@@ -69,7 +69,7 @@
 									{assign var="totalPoints" value=$totalPoints + $points.points}
 								{/if}
 							{else}
-								N/A: Lock your pick to see
+								<div class="center">N/A: Lock your pick to see</div>
 							{/if}
 						{else}
 							<div class="nopick center">No pick</div>
