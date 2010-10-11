@@ -3,6 +3,20 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	h3.accordion a.accordion {
+		background: #C2BABB;
+	}
+	div.accordion {
+		width: 500px;
+	}
+	div.accordionTitle {
+		font-weight: bold;
+		padding: 0px;
+	}
+	div.accordionContent{ 
+		padding: 0px 0px 10px 50px;
+		font-size: 10px;
+	}
 	div.scores {
 		border: 1px solid;
 		padding: 10px 0px 20px 10px;

@@ -7,8 +7,12 @@
 	<title>Default: {$title}</title>
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
 	<link rel="stylesheet" href="/js/anytime/anytime.css" type="text/css">
+	<link rel="stylesheet" href="/js/tipTip/tipTip.css" type="text/css">
+	<link rel="stylesheet" href="/css/smoothness/jquery-ui-1.8.5.custom.css" type="text/css">
 	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery-ui-1.8.5.custom.min.js"></script>
 	<script type="text/javascript" src="/js/anytime/anytimec.js"></script>
+	<script type="text/javascript" src="/js/tipTip/jquery.tipTip.minified.js"></script>
 	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/enterPicks.js"></script>
 	<script type="text/javascript" src="/js/manageSegment.js"></script>
