@@ -54,6 +54,7 @@ class PoolController extends \silk\action\Controller {
 		$this->set( "points", $points );
 		$this->set( "chart", $webChartFile ); 
 		$this->set( "season", $season );
+		$this->set( "total", array() );
 	}
 	
 	public function enterPicks( $params = array() ) {

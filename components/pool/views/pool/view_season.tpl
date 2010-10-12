@@ -36,21 +36,29 @@
 		<tr>
 
 			<td></td>
+			{* use this for weekly detail
 			{foreach from=$season->segments item="segment"}
 				<th scope="col">{$segment.name}</th>
 			{/foreach}
+			*}
+			<th scope="col">Total</th>
 		</tr>
 	</thead>
 	<tbody>
 		{foreach from=$season->users item="user"}
+			{assign var="total" value=0}
 			<tr>
 				<th scope="row">{$user.first_name} {$user.last_name}</th>
 				{foreach from=$season->segments item="segment"}
-					{$segment->getPointsBySegment($user) assign="points"}
-					<td>{$points}</td>
-				{/foreach}
+                                        {$segment->getPointsBySegment($user) assign="points"}
+                                        {if $total == 0}
+						{assign var="total" value=$points}
+                                        {else}
+                                                {assign var="total" value=$total+$points}
+                                        {/if}
+                                {/foreach}
+				<td>{$total}</td>
 			</tr>
 		{/foreach}
 	</tbody>
 </table>
-{* <img src="{$chart}" title="Chart" /> *}

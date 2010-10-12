@@ -74,11 +74,11 @@ class Segment extends ActiveRecord {
 		foreach( $this->games as $game ) {
 			$game_ids[] = $game->id;
 		}
+		$userPoints = 0;
 		if( count( $game_ids )) {
 			$sql = "SELECT * FROM silk_points AS sp WHERE user_id = ? AND game_id IN (" . implode( ",", $game_ids ) . ")";
 			$params = array( $user->id );
 			$points = \pool\Points::find_all_by_query( $sql, $params );
-			$userPoints = 0;
 			foreach( $points as $point ) {
 				$userPoints = $userPoints + $point->points;
 			}
