@@ -1,5 +1,5 @@
 /* page styles */
-body { font-size:62.5%; }
+body {  }
 
 /*demo styles*/
 /*table {width: 500px; height: 200px; margin-left: 30px; } */
@@ -9,7 +9,7 @@ th { background-color:#f4f4f4; }  */
 caption { font-size: 1.5em;  }
 
 /*visualize extension styles*/
-.visualize { margin: 10px 0 0 10px; padding: 70px 40px 90px; background: #222 url(../images/chartbg.png) top repeat-x; border: 1px solid #000; -moz-border-radius: 12px; -webkit-border-radius: 12px; border-radius: 12px; }
+.visualize { font-size:62.5%; margin: 10px 0 0 10px; padding: 70px 40px 90px; background: #222 url(../images/chartbg.png) top repeat-x; border: 1px solid #000; -moz-border-radius: 12px; -webkit-border-radius: 12px; border-radius: 12px; }
 .visualize canvas { border: 1px solid #888; margin: -1px; background: #222; }
 .visualize-labels-x, .visualize-labels-y { top: 70px; left: 40px; z-index: 100; }
 .visualize-pie .visualize-labels { position: absolute; top: 70px; left: 40px; }
