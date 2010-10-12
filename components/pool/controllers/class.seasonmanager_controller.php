@@ -159,7 +159,20 @@ class SeasonmanagerController extends \silk\action\Controller {
 				}
 			}
 		}
+		$season = \pool\Season::find_by_id( $segment->season_id );
 		silk\action\Response::redirect_to_action( array( "controller"=>"seasonmanager", "action"=>"manageSegment", "id"=>$segment->season_id, "subid"=>$segment->id ));
+	}
+
+	/**
+	 * Ajax function to return statistical data
+	 * @param array $params
+	 */
+	public function createChart( $params = array() ) {
+		$this->show_layout = false;
+		$season_id = $params["season_id"];
+		$season = \pool\Season::find_by_id( $season_id );
+		$points = $season->getPointsBySegment();
+		$this->set( "data", json_encode( $points ));
 	}
 	
 	public function enterScores( $params = array() ) {

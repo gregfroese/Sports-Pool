@@ -64,5 +64,48 @@ class Segment extends ActiveRecord {
 			}
 		}
 	}
+	
+	/**
+	 * Get all the points for a user for this segment
+	 * @param user $user
+	 */
+	public function getPointsBySegment( $user ) {
+		$game_ids = array();
+		foreach( $this->games as $game ) {
+			$game_ids[] = $game->id;
+		}
+		if( count( $game_ids )) {
+			$sql = "SELECT * FROM silk_points AS sp WHERE user_id = ? AND game_id IN (" . implode( ",", $game_ids ) . ")";
+			$params = array( $user->id );
+			$points = \pool\Points::find_all_by_query( $sql, $params );
+			$userPoints = 0;
+			foreach( $points as $point ) {
+				$userPoints = $userPoints + $point->points;
+			}
+		}
+		return $userPoints + $this->getBonusPointsBySegment( $user );
+	}
+/**
+	 * Get all the bonus points for a user for this segment
+	 * @param user $user
+	 */
+	public function getBonusPointsBySegment( $user ) {
+		$bonus_ids = array();
+		foreach( $this->bonus as $bonus ) {
+			$bonus_ids[] = $bonus->id;
+		}
+		if( count( $bonus_ids )) {
+			$sql = "SELECT * FROM silk_bonusresponses AS br WHERE user_id = ? AND bonus_id IN (" . implode( ",", $bonus_ids ) . ")";
+			$params = array( $user->id );
+			$responses = \pool\Bonusresponses::find_all_by_query( $sql, $params );
+			$userPoints = 0;
+			foreach( $responses as $response ) {
+				if( $response->value > 0 ) {
+					$userPoints = $userPoints + $response->value;
+				} 
+			}
+		}
+		return $userPoints;
+	}
 }
 ?>

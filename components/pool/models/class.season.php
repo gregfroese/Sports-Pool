@@ -75,9 +75,9 @@ class Season extends ActiveRecord {
 				//regular points
 				foreach( $segment->games as $game ) {
 					$gamePoints = $game->getPoints( $user );
-//					if( !empty( $gamePoints->points )) {
+					if( !empty( $gamePoints )) {
 						$points = $points + $gamePoints->points;
-//					}
+					}
 				}
 				//bonus points (if any)
 				$points = $points + $segment->getBonusPoints( $user );
@@ -86,6 +86,21 @@ class Season extends ActiveRecord {
 		}
 		asort( $chartPoints );
 		return $chartPoints;
+	}
+	
+	/**
+	 * Get all points per user per segment
+	 */
+	public function getPointsBySegment() {
+		$points = array();
+		foreach( $this->users as $user ) {
+			$key = $user->first_name . " " . $user->last_name;
+			$points[$key] = array();
+			foreach( $this->segments as $segment ) {
+				$points[$key][$segment->name] = $segment->getPointsBySegment( $user );
+			}
+		}
+		return $points;
 	}
 }
 ?>

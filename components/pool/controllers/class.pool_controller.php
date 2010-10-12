@@ -49,6 +49,9 @@ class PoolController extends \silk\action\Controller {
 	
 		$chart->setTitle("Points for " . $season->name );
 		$chart->render( $chartFile );
+		
+		$points = $season->getPointsBySegment();
+		$this->set( "points", $points );
 		$this->set( "chart", $webChartFile ); 
 		$this->set( "season", $season );
 	}

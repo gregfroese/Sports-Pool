@@ -1,4 +1,8 @@
+<script type="text/javascript" src="/js/viewSeason.js"></script>
+<script language="javascript" type="text/javascript" src="/js/visualize.jQuery.js"></script>
+
 <h1>Season: {$season.name}</h1>
+{hidden name="season_id" value=$season.id class="season_id"}
 <div class="picksContainer">
 	<table class="hor-zebra" id="hor-zebra">
 		<tr>
@@ -24,4 +28,24 @@
 	</table>
 </div>
 
+<table class="chart">
+	<caption>Season Stats</caption>
+	<thead>
+		<tr>
+			<td></td>
+			{foreach from=$season->segments item=segment}
+				<th>{$segment->name}</th>
+			{/foreach}
+		</tr>
+	</thead>
+	<tbody>
+		{foreach from=$season->users item=user}
+			<tr>
+				<th scope="row">{$user.first_name} {$user.last_name}</th>
+				<td>10</td>
+				<td>3</td>
+			</tr>
+		{/foreach}
+	</tbody>
+</table>
 <img src="{$chart}" title="Chart" />
