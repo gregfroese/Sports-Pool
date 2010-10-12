@@ -83,7 +83,8 @@ class Segment extends ActiveRecord {
 				$userPoints = $userPoints + $point->points;
 			}
 		}
-		return $userPoints + $this->getBonusPointsBySegment( $user );
+		$userPoints = $userPoints + $this->getBonusPointsBySegment( $user );
+		return $userPoints;
 	}
 /**
 	 * Get all the bonus points for a user for this segment

@@ -1,5 +1,7 @@
 <script type="text/javascript" src="/js/viewSeason.js"></script>
 <script language="javascript" type="text/javascript" src="/js/visualize.jQuery.js"></script>
+<link rel="stylesheet" href="/css/visualize.css" type="text/css">
+<link rel="stylesheet" href="/css/visualize-dark.css" type="text/css">
 
 <h1>Season: {$season.name}</h1>
 {hidden name="season_id" value=$season.id class="season_id"}
@@ -29,23 +31,26 @@
 </div>
 
 <table class="chart">
-	<caption>Season Stats</caption>
+	<caption>Points by Segment</caption>
 	<thead>
 		<tr>
+
 			<td></td>
-			{foreach from=$season->segments item=segment}
-				<th>{$segment->name}</th>
+			{foreach from=$season->segments item="segment"}
+				<th scope="col">{$segment.name}</th>
 			{/foreach}
 		</tr>
 	</thead>
 	<tbody>
-		{foreach from=$season->users item=user}
+		{foreach from=$season->users item="user"}
 			<tr>
 				<th scope="row">{$user.first_name} {$user.last_name}</th>
-				<td>10</td>
-				<td>3</td>
+				{foreach from=$season->segments item="segment"}
+					{$segment->getPointsBySegment($user) assign="points"}
+					<td>{$points}</td>
+				{/foreach}
 			</tr>
 		{/foreach}
 	</tbody>
 </table>
-<img src="{$chart}" title="Chart" />
+{* <img src="{$chart}" title="Chart" /> *}

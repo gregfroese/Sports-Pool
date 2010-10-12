@@ -3,6 +3,10 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	table.chart {
+		width: 740px;
+		display: none;
+	}
 	h3.accordion a.accordion {
 		background: #C2BABB;
 	}
