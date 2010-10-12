@@ -22,10 +22,12 @@
 	    		{/foreach}
 	    	</select>
 		</div>
+		<div class="clear"></div>
 		<div>
 			<label class="block" for"awayscore">Away Score</label>
 			<input type="text" value="{$game.away_score}" name="away_score" id="away_score" />
 		</div>
+		<div class="clear"></div>
 		<div>	
 			<label class="block" for="hometeam">Home Team</label>
 	    	<select id="home_id" name="home_id">
@@ -35,10 +37,12 @@
 	    		{/foreach}
 	    	</select>
 		</div>
+		<div class="clear"></div>
 		<div>
 			<label class="block" for"homescore">Home Score</label>
 			<input type="text" value="{$game.home_score}" name="home_score" id="home_score" />
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<label class="block"></label>
 			<select id="status_id" name="status_id">
@@ -48,22 +52,27 @@
 				{/foreach}
 			</select>
 		</div>
+		<div class="clear"></div>
 		<div>
 			<label class="block" for"modifier">Modifier</label>
 			<input type="text" value="{$game.modifier}" name="modifier" id="modifier" />
 		</div>
+		<div class="clear"></div>
 		<div>
 			<label class="block" for"notes">Notes</label>
 			<textarea rows="5" cols="80" name="notes" id="notes">{$game.notes}</textarea>
 		</div>
+		<div class="clear"></div>
 		<div>
 			<label class="block" for"start_date">Start Date</label>
 			<input type="text" class="datepicker" value="{$game.start_date}" name="start_date" id="start_date" />
 		</div>
+		<div class="clear"></div>
 		<div>
 			<label class="block" for"end_date">End Date</label>
 			<input type="text" class="datepicker" value="{$game.end_date}" name="end_date" id="end_date" />
 		</div>
+		<div class="clear"></div>
 		<div class="">
 			<input type="submit" class="buttons" value="Submit" name="Submit">
 		</div>
