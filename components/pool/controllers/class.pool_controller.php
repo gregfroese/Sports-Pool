@@ -85,7 +85,7 @@ class PoolController extends \silk\action\Controller {
 			$userTotal[$username][$segment->name] = $tempTotal;
 
 			foreach( $origChartPoints as $name=>$segmentTotals ) {
-						if( !isset( $total[$name] )) {
+				if( !isset( $total[$name] )) {
 					$total[$name] = 0;
 				}
 				$total[$name] = $total[$name] + $segmentTotals[$segment->name];
@@ -93,13 +93,16 @@ class PoolController extends \silk\action\Controller {
 			$noKeysTotal = $total;
 			sort( $noKeysTotal );
 
-			$segmentRanges["High"][$segment->name] = $noKeysTotal[count($noKeysTotal)-1];
-			$count = 0;
-			$segmentRanges["Low"][$segment->name] = $noKeysTotal[$count];
-			while( $noKeysTotal[$count] <= 0 ) {
-				$count++;
+			//don't use a segment that doesn't have any points yet
+			if( !empty( $noKeysTotal[count($noKeysTotal)-1] )) {
+				$segmentRanges["High"][$segment->name] = $noKeysTotal[count($noKeysTotal)-1];
+				$count = 0;
 				$segmentRanges["Low"][$segment->name] = $noKeysTotal[$count];
-				if( $count > 1000 ) break; //jst get out of here
+				while( $noKeysTotal[$count] <= 0 ) {
+					$count++;
+					$segmentRanges["Low"][$segment->name] = $noKeysTotal[$count];
+					if( $count > 1000 ) break; //jst get out of here
+				}
 			}
 		}
 
