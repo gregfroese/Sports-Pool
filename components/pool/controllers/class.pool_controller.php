@@ -75,7 +75,7 @@ class PoolController extends \silk\action\Controller {
 		}		
 		$points = $season->getPointsBySegment();
 		$this->set( "points", $points );
-		$this->set( "chartPoints", $chartPoints ); 
+		$this->set( "chartPoints", $origChartPoints ); 
 		$this->set( "season", $season );
 		$this->set( "total", array() );
 		$this->set( "ranges", $ranges );
