@@ -88,15 +88,26 @@ class Season extends ActiveRecord {
 				$chartPoints[$user->first_name . " " . $user->last_name][$segment->name] = $points;
 			}
 			$chartPoints[$user->first_name . " " . $user->last_name]["total"] = $total;
+			//use the sort field as a key for sorting - here we want it to mirror total
+			$chartPoints[$user->first_name . " " . $user->last_name]["sort"] = $total;
 		}
+		$chartPoints = $this->sortChartPoints($chartPoints);
+		return $chartPoints;
+	}
+	
+	public function sortChartPoints( $chartPoints ) {
 		uasort( $chartPoints, array( "pool\Season", "sortPoints" ));
+		return $chartPoints;
+	}
+	public function sortChartPointsNoKey( $chartPoints ) {
+		usort( $chartPoints, array( "pool\Season", "sortPoints" ));
 		return $chartPoints;
 	}
 	
 	private function sortPoints( $a, $b ) {
-		if( $a["total"] > $b["total"] ) {
+		if( $a["sort"] > $b["sort"] ) {
 			return 1;
-		} elseif( $a["total"] < $b["total"] ) {
+		} elseif( $a["sort"] < $b["sort"] ) {
 			return -1;
 		} else {
 			return 0;

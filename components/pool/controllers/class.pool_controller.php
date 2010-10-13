@@ -36,12 +36,50 @@ class PoolController extends \silk\action\Controller {
 		$season = \pool\Season::find_by_id( $season_id );
 		//create a chart
 		$chartPoints = $season->getPoints();
-				
+		$origChartPoints = $chartPoints;
+		
+		//find the high and low values for each segment
+		$ranges = array();
+		
+		//set the current user's values
+		$user = \silk\auth\UserSession::get_current_user();
+		$userName = $user->first_name . " " . $user->last_name;
+		$ranges[$userName] = $chartPoints[$userName];
+		
+		foreach( $season->segments as $segment ) {
+			$chartPoints = $origChartPoints;
+			foreach( $chartPoints as $name=>$segmentTotals ) {
+				$chartPoints[$name]["sort"] = $chartPoints[$name][$segment->name];
+			}
+			$chartPoints = $season->sortChartPointsNoKey( $chartPoints );
+			
+			//don't use a segment that doesn't have any points yet
+			if( !empty( $chartPoints[count($chartPoints)-1]["sort"] )) {
+				$ranges["High"][$segment->name] = $chartPoints[count($chartPoints)-1]["sort"];
+				//don't use a zero value for the low
+				$count = 0;
+				$ranges["Low"][$segment->name] = $chartPoints[$count]["sort"];
+				while( $chartPoints[$count]["sort"] <= 0 ) {
+					$count++;
+					$ranges["Low"][$segment->name] = $chartPoints[$count]["sort"];
+					if( $count > 100 ) break;
+				}
+			}
+//			var_dump( $chartPoints, $range, count($chartPoints)-1 ); die;
+		}
+		//remove items in the user's array that isn't in the high/low ranges
+		foreach( $ranges[$userName] as $key=>$value ) {
+			if( !array_key_exists( $key, $ranges["High"] )) {
+				unset( $ranges[$userName][$key] );
+			}
+		}		
 		$points = $season->getPointsBySegment();
 		$this->set( "points", $points );
 		$this->set( "chartPoints", $chartPoints ); 
 		$this->set( "season", $season );
 		$this->set( "total", array() );
+		$this->set( "ranges", $ranges );
+		$this->set( "userName", $userName );
 	}
 	
 	public function enterPicks( $params = array() ) {

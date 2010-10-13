@@ -47,3 +47,35 @@
 		{/foreach}
 	</tbody>
 </table>
+
+<table class="chartLine">
+	<caption>My performance</caption>
+	<thead>
+		<tr>
+			<td></td>
+			{foreach from=$ranges["High"] item="points" key="name"}
+				<th scope="col">{$name}</th>
+			{/foreach}
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th scope="col">High</th>
+			{foreach from=$ranges["High"] item="points" key="name"}
+				<td>{$points}</td>
+			{/foreach}
+		</tr>
+		<tr>
+			<th scope="col">Low</th>
+			{foreach from=$ranges["Low"] item="points" key="name"}
+				<td>{$points}</td>
+			{/foreach}
+		</tr>
+		<tr>
+			<th scope="col">{$userName}</th>
+			{foreach from=$ranges[$userName] item="points" key="name"}
+				<td>{$points}</td>
+			{/foreach}
+		</tr>
+	</tbody>
+</table>
