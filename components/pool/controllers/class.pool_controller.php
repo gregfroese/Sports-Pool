@@ -88,13 +88,18 @@ class PoolController extends \silk\action\Controller {
 				if( !isset( $total[$name] )) {
 					$total[$name] = 0;
 				}
-				$total[$name] = $total[$name] + $segmentTotals[$segment->name];
+				if( $segmentTotals[$segment->name] > 0 ) {
+					$total[$name] = $total[$name] + $segmentTotals[$segment->name];
+					$useSegment = true;
+				} else {
+					$useSegment = false;
+				}
 			}
 			$noKeysTotal = $total;
 			sort( $noKeysTotal );
 
 			//don't use a segment that doesn't have any points yet
-			if( !empty( $noKeysTotal[count($noKeysTotal)-1] )) {
+			if( $useSegment ) {
 				$segmentRanges["High"][$segment->name] = $noKeysTotal[count($noKeysTotal)-1];
 				$count = 0;
 				$segmentRanges["Low"][$segment->name] = $noKeysTotal[$count];
