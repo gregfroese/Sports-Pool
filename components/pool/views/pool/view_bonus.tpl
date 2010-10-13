@@ -1,6 +1,6 @@
 <p></p>
 <h2>Bonus</h2>
-<div class="picksContainer">
+<div class="scores" id="scores">
 	<table class="hor-zebra" id="hor-zebra">
 		<thead>
 			<tr>
