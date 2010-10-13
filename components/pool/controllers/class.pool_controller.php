@@ -34,7 +34,7 @@ class PoolController extends \silk\action\Controller {
 	public function viewSeason( $params = array() ) {
 		$season_id = $params["id"];
 		$season = \pool\Season::find_by_id( $season_id );
-		//create a chart
+		//create a chart that show's the current user's performance in relation to the best and worst performance per segment
 		$chartPoints = $season->getPoints();
 		$origChartPoints = $chartPoints;
 		
@@ -43,8 +43,8 @@ class PoolController extends \silk\action\Controller {
 		
 		//set the current user's values
 		$user = \silk\auth\UserSession::get_current_user();
-		$userName = $user->first_name . " " . $user->last_name;
-		$ranges[$userName] = $chartPoints[$userName];
+		$username = $user->first_name . " " . $user->last_name;
+		$ranges[$username] = $chartPoints[$username];
 		
 		foreach( $season->segments as $segment ) {
 			$chartPoints = $origChartPoints;
@@ -62,24 +62,62 @@ class PoolController extends \silk\action\Controller {
 				while( $chartPoints[$count]["sort"] <= 0 ) {
 					$count++;
 					$ranges["Low"][$segment->name] = $chartPoints[$count]["sort"];
-					if( $count > 100 ) break;
+					if( $count > 1000 ) break; //jst get out of here
 				}
 			}
-//			var_dump( $chartPoints, $range, count($chartPoints)-1 ); die;
 		}
 		//remove items in the user's array that isn't in the high/low ranges
-		foreach( $ranges[$userName] as $key=>$value ) {
+		foreach( $ranges[$username] as $key=>$value ) {
 			if( !array_key_exists( $key, $ranges["High"] )) {
-				unset( $ranges[$userName][$key] );
+				unset( $ranges[$username][$key] );
 			}
 		}		
+
+		//create a chart that shows a user's performance cumulatively by segment
+		$ranges2[$username] = $origChartPoints[$username];
+		$total = array();
+		$segmentRanges = array();
+		$userTotal = array();
+		$tempTotal = 0;
+		foreach( $season->segments as $segment ) {
+			//build the cumulative total for the user
+			$tempTotal = $tempTotal + $origChartPoints[$username][$segment->name];
+			$userTotal[$username][$segment->name] = $tempTotal;
+
+			foreach( $origChartPoints as $name=>$segmentTotals ) {
+						if( !isset( $total[$name] )) {
+					$total[$name] = 0;
+				}
+				$total[$name] = $total[$name] + $segmentTotals[$segment->name];
+			}
+			$noKeysTotal = $total;
+			sort( $noKeysTotal );
+
+			$segmentRanges["High"][$segment->name] = $noKeysTotal[count($noKeysTotal)-1];
+			$count = 0;
+			$segmentRanges["Low"][$segment->name] = $noKeysTotal[$count];
+			while( $noKeysTotal[$count] <= 0 ) {
+				$count++;
+				$segmentRanges["Low"][$segment->name] = $noKeysTotal[$count];
+				if( $count > 1000 ) break; //jst get out of here
+			}
+		}
+
+		//remove items in the user's array that isn't in the high/low ranges
+		foreach( $userTotal[$username] as $key=>$value ) {
+			if( !array_key_exists( $key, $segmentRanges["High"] )) {
+				unset( $userTotal[$username][$key] );
+			}
+		}
 		$points = $season->getPointsBySegment();
 		$this->set( "points", $points );
 		$this->set( "chartPoints", $origChartPoints ); 
 		$this->set( "season", $season );
 		$this->set( "total", array() );
 		$this->set( "ranges", $ranges );
-		$this->set( "userName", $userName );
+		$this->set( "segmentRanges", $segmentRanges );
+		$this->set( "username", $username );
+		$this->set( "userTotal", $userTotal );
 	}
 	
 	public function enterPicks( $params = array() ) {
