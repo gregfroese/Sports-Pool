@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Default: {$title}</title>
+	<title>{$title}</title>
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
 	<link rel="stylesheet" href="/js/anytime/anytime.css" type="text/css">
 	<link rel="stylesheet" href="/js/tipTip/tipTip.css" type="text/css">

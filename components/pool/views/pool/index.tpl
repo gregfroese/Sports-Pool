@@ -13,9 +13,9 @@
 			</div>
 			<div class="accordionTitle">Action</div>
 			<div class="accordionContent">
-				{link component="pool" action="viewSeason" id=$season.id text="Season Overview"}
 				{if $currentUser->id != "" and $currentUser->id != 0}
 			  		{if $season->isMember($currentUser)}
+			  			{link component="pool" action="viewSeason" id=$season.id text="Season Overview"}
 			  			{link component="pool" action="leaveSeason" id=$season.id text="Leave"}
 			  		{else}
 			  			{link component="pool" action="joinSeason" id=$season.id text="Join"}
