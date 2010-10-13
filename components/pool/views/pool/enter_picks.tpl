@@ -1,4 +1,5 @@
 <h1>Season: {$segment->season.name} - {$segment->name}</h1>
+{link component="pool" action="viewSeason" id=$segment->season.id text="Season Overview"}
 {link action="viewScores" id=$segment->id text="View Scores"}
 <div class="picksContainer">
 	<table class="hor-zebra" id="hor-zebra">
@@ -29,6 +30,8 @@
 		{/strip}
 		{/foreach}
 	</table>
+	<br />
+	{link action="lockAllPicks" controller="pool" segment_id=$segment.id text="Lock all picks"}
 </div>
 
 <div class="bonusContainer">

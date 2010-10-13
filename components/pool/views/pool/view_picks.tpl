@@ -1,5 +1,6 @@
 <p></p>
 <h2>View Picks</h2>
+{link component="pool" action="viewSeason" id=$segment->season.id text="Season Overview"}
 {if $segment->status->id == 3}
   	{link action="enterPicks" id=$segment->id text="Enter Picks"}
   {/if}

@@ -69,7 +69,7 @@ class Segment extends ActiveRecord {
 	 * Get all the points for a user for this segment
 	 * @param user $user
 	 */
-	public function getPointsBySegment( $user ) {
+	public function getPointsBySegment( $user, $includeBonus = true ) {
 		$game_ids = array();
 		foreach( $this->games as $game ) {
 			$game_ids[] = $game->id;
@@ -83,7 +83,9 @@ class Segment extends ActiveRecord {
 				$userPoints = $userPoints + $point->points;
 			}
 		}
-		$userPoints = $userPoints + $this->getBonusPointsBySegment( $user );
+		if( $includeBonus ) {
+			$userPoints = $userPoints + $this->getBonusPointsBySegment( $user );
+		}
 		return $userPoints;
 	}
 /**
@@ -107,6 +109,15 @@ class Segment extends ActiveRecord {
 			}
 		}
 		return $userPoints;
+	}
+	
+	public function lockAllPicks( $user ) {
+		if( empty( $user )) {
+			$user = \silk\auth\UserSession::get_current_user();
+		}
+		foreach( $this->games as $game ) {
+			$game->lockAllPicks( $user );
+		}
 	}
 }
 ?>

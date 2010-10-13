@@ -1,5 +1,5 @@
 <h1>{$segment->season.name}: {$segment.name} - View Scores</h1>
-
+{link component="pool" action="viewSeason" id=$segment->season.id text="Season Overview"}
 <div id="scores" class="picksContainer">
 	<table class="hor-zebra" id="hor-zebra">
 		<tr>
@@ -43,3 +43,4 @@
 </div>
 
 {render_partial template="view_picks.tpl" currentUser=$currentUser segment=$segment}
+{render_partial template="view_bonus.tpl" currentUser=$currentUser segment=$segment}

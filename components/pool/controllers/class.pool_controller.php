@@ -36,23 +36,10 @@ class PoolController extends \silk\action\Controller {
 		$season = \pool\Season::find_by_id( $season_id );
 		//create a chart
 		$chartPoints = $season->getPoints();
-		require_once( dirname(dirname(__FILE__)) . "/lib/libchart-1.2.1/libchart/classes/libchart.php" );
-		$chartFile = dirname(dirname(dirname(dirname(__FILE__)))) . "/images/charts/season_" . $season->id . ".png";
-		$webChartFile = "/images/charts/season_" . $season->id . ".png";
-		$chart = new HorizontalBarChart(500, 170);
-
-		$dataSet = new XYDataSet();
-		foreach( $chartPoints as $name=>$points ) {
-			$dataSet->addPoint( new Point( $name, $points ));
-		}
-		$chart->setDataSet($dataSet);
-	
-		$chart->setTitle("Points for " . $season->name );
-		$chart->render( $chartFile );
-		
+				
 		$points = $season->getPointsBySegment();
 		$this->set( "points", $points );
-		$this->set( "chart", $webChartFile ); 
+		$this->set( "chartPoints", $chartPoints ); 
 		$this->set( "season", $season );
 		$this->set( "total", array() );
 	}
@@ -83,6 +70,14 @@ class PoolController extends \silk\action\Controller {
 		$user = \silk\Auth\UserSession::get_current_user();
 		$game->lockPick( $user );
 		$this->set( "game", $game );
+	}
+	
+	public function lockAllPicks( $params = array() ) {
+		$segment_id = $params["segment_id"];
+		$segment = \pool\Segment::find_by_id( $segment_id );
+		$user = \silk\Auth\UserSession::get_current_user();
+		$segment->lockAllPicks( $user );
+		\silk\action\Response::redirect_to_action( array( "controller"=>"pool", "action"=>"enterPicks", "id"=>$segment->id ));
 	}
 	
 	public function pickTie( $params = array() ) {

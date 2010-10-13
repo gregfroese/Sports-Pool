@@ -31,10 +31,27 @@
 </div>
 
 <table class="chart">
+	<caption>Leaderboard</caption>
+	<thead>
+		<tr>
+			<td></td>
+			<th scope="col">Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach from=$chartPoints key="name" item="chartPoint"}
+			<tr>
+				<th scope="row">{$name}</th>
+				<td>{$chartPoint.total}</td>
+			</tr>
+		{/foreach}
+	</tbody>
+</table>
+{*
+<table class="chart">
 	<caption>Points by Segment</caption>
 	<thead>
 		<tr>
-
 			<td></td>
 			{* use this for weekly detail
 			{foreach from=$season->segments item="segment"}
@@ -62,3 +79,4 @@
 		{/foreach}
 	</tbody>
 </table>
+*}

@@ -20,7 +20,7 @@ class Status extends ActiveRecord {
 
     public static function find_status_by_category_and_name( $category, $name ) {
     	//todo: there has to be a better way to do this, hardcoding the table name is not cool
-    	$sql = "SELECT * FROM silk_status AS s WHERE category=? AND name=? ORDER BY ID DESC LIMIT 1";
+    	$sql = "SELECT * FROM silk_status AS s WHERE category LIKE ? AND name LIKE ? ORDER BY ID DESC LIMIT 1";
     	$params = array( "category"=>$category, "name"=>$name );
     	return \pool\Status::find_by_query( $sql, $params);
     }

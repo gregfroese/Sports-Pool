@@ -26,5 +26,9 @@ class Pick extends ActiveRecord {
 //		if( empty($this->params["name"]) ) $this->add_validation_error("Seasons must have a name.");
 //		if( intval($this->params["startYear"] < date("yyyy"))) $this->add_validation_error("Season cannot exist in the past.");
 	}
+	
+	public function lock() {
+		$status = \pool\Status::find_status_by_category_and_name( "pick", "Locked");
+	}
 }
 ?>

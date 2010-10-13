@@ -22,6 +22,7 @@ class Game extends ActiveRecord {
     	$this->create_has_one_association( "loser", "pool\Team", "loser_id");
     	$this->create_belongs_to_association( "status", "pool\Status", "status_id", array() );
     	$this->create_has_many_association( "points", "pool\Points", "game_id" );
+    	$this->create_has_many_association( "picks", "pool\Pick", "game_id", array() );
 //    	$this->has_association("stages", "stage_id");
 //      $this->create_belongs_to_association('author', 'CmsUser', 'author_id');
 //      $this->create_has_and_belongs_to_many_association('categories', 'BlogCategory', 'blog_post_categories', 'category_id', 'post_id', array('order' => 'name ASC'));
@@ -40,13 +41,16 @@ class Game extends ActiveRecord {
     	$this->lockAllPicks();
     }
     
-    public function lockAllPicks() {
-    	
+    public function lockAllPicks( $user = null ) {
     	$status = \pool\Status::find_status_by_category_and_name( "pick", "Locked" );
-    	$picks = $this->getAllPicks();
-    	foreach( $picks as $pick ) {
-			$pick->status_id = $status->id;
-    		$pick->save();
+    	foreach( $this->picks as $pick ) {
+    		if( empty( $user )) {
+				$pick->status_id = $status->id;
+    			$pick->save();
+    		} elseif( $user->id == $pick->user_id ) {
+    			$pick->status_id = $status->id;
+    			$pick->save();
+    		}
     	}
     }
     public function getAllPicks() {

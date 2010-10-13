@@ -120,16 +120,18 @@ body {
 	        text-align: left;
 	        border-collapse: collapse;
 	}
-	#hor-zebra th
-	{
-	        font-size: 14px;
-	        font-weight: normal;
-	        padding: 5px 8px;
-	        color: #039;
+	#hor-zebra th {
+		background-color:black;
+		color:white;
+		font-size:14px;
+		font-weight:normal;
+		padding:5px 8px;
+		text-align:center;
 	}
 	#hor-zebra td
 	{
 	        padding: 1px;
+	        text-align: center;
 	}
 	#hor-zebra .odd
 	{

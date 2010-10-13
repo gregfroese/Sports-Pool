@@ -71,21 +71,36 @@ class Season extends ActiveRecord {
 		$chartPoints = array();
 		foreach( $this->users as $user ) {
 			$points = 0;
+			$total = 0;
 			foreach( $this->segments as $segment ) {
 				//regular points
-				foreach( $segment->games as $game ) {
+				/*foreach( $segment->games as $game ) {
 					$gamePoints = $game->getPoints( $user );
 					if( !empty( $gamePoints )) {
 						$points = $points + $gamePoints->points;
 					}
-				}
+				}*/
 				//bonus points (if any)
-				$points = $points + $segment->getBonusPoints( $user );
+//				$points = $points + $segment->getBonusPoints( $user );
+
+				$points = $segment->getPointsBySegment( $user );
+				$total = $total + $points;
+				$chartPoints[$user->first_name . " " . $user->last_name][$segment->name] = $points;
 			}
-			$chartPoints[$user->first_name] = $points;
+			$chartPoints[$user->first_name . " " . $user->last_name]["total"] = $total;
 		}
-		asort( $chartPoints );
+		uasort( $chartPoints, array( "pool\Season", "sortPoints" ));
 		return $chartPoints;
+	}
+	
+	private function sortPoints( $a, $b ) {
+		if( $a["total"] > $b["total"] ) {
+			return 1;
+		} elseif( $a["total"] < $b["total"] ) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 	
 	/**
