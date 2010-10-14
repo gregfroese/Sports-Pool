@@ -1,5 +1,6 @@
 <script type="text/javascript" src="/js/viewSeason.js"></script>
 <script language="javascript" type="text/javascript" src="/js/visualize.jQuery.js"></script>
+<script language="javascript" type="text/javascript" src="/js/excanvas.js"></script>
 <link rel="stylesheet" href="/css/visualize.css" type="text/css">
 <link rel="stylesheet" href="/css/visualize-dark.css" type="text/css">
 
