@@ -30,9 +30,9 @@
 			<tr class="{cycle values="even,odd"} {$class}">
 				<td>
 					{if $currentUser.id == $user.id}
-						<div class="currentUser">{$user.first_name}</div>
+						<div class="currentUser">{$user.first_name} {$user.last_name}</div>
 					{else}
-						<div class="">{$user.first_name}</div>
+						<div class="">{$user.first_name} {$user.last_name}</div>
 					{/if}
 				</td>
 				{* now get their pick for each game *}
