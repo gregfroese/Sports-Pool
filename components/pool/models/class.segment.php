@@ -93,6 +93,7 @@ class Segment extends ActiveRecord {
 	 * @param user $user
 	 */
 	public function getBonusPointsBySegment( $user ) {
+		$userPoints = 0;
 		$bonus_ids = array();
 		foreach( $this->bonus as $bonus ) {
 			$bonus_ids[] = $bonus->id;
@@ -101,7 +102,6 @@ class Segment extends ActiveRecord {
 			$sql = "SELECT * FROM silk_bonusresponses AS br WHERE user_id = ? AND bonus_id IN (" . implode( ",", $bonus_ids ) . ")";
 			$params = array( $user->id );
 			$responses = \pool\Bonusresponses::find_all_by_query( $sql, $params );
-			$userPoints = 0;
 			foreach( $responses as $response ) {
 				if( $response->value > 0 ) {
 					$userPoints = $userPoints + $response->value;

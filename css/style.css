@@ -3,12 +3,62 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	div.hide {
+		display: none;
+	}
+	div.menu {
+		width: 1000px;
+	}
+	div.left {
+		text-align: left;
+		float: left;
+	}
+	div.right {
+		text-align: right;
+		float: right;
+	}
+	div.content {
+		width: 1000px;
+	}
+	div.mainContent {
+		float: left;
+		width: 800px;
+	}
+	div.rightContent {
+		margin: 0 0 0 15px;
+		float: left;
+		width: 185px;
+	}
+	.commentBox {
+		width: 180px;
+	}
+	div.comment {
+		text-align: left;
+		padding: 0px 0px 3px 2px;
+	}
+	div.commentFooter {
+		text-align: right;
+		font-size: 8px;
+		color: white;
+		background-color: #4459E3;
+		padding: 0px 2px 0px 0px;
+	}
+	table.comments  {
+		border:1px outset black;
+		border-collapse:collapse;
+		border-spacing:2px;
+	}
+	table.comments td {
+		-moz-border-radius:0 0 0 0;
+		background-color:white;
+		/*border:1px inset black;*/
+	}
 	table.chart {
-		width: 740px;
+		width: 710px;
 		display: none;
 	}
 	table.chartLine {
-		width: 740px;
+		width: 710px;
 		display: none;
 	}
 	h3.accordion a.accordion {
@@ -34,13 +84,13 @@ body {
 	div.picksContainer {
 		padding: 10px 0px 20px 10px;
 		border: 1px solid;
-		width: 820px;
+		width: 790px;
 		margin: 5px;
 	}
 	div.bonusContainer {
 		padding: 10px 0px 20px 10px;
 		border: 1px solid;
-		width: 820px;
+		width: 790px;
 		margin: 5px;
 	}
 	label.block {
@@ -120,7 +170,7 @@ body {
 	        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	        font-size: 12px;
 	        margin: 0px 0px 0px 0px;
-	        width: 800px;
+	        width: 780px;
 	        text-align: left;
 	        border-collapse: collapse;
 	}
