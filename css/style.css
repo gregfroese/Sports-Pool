@@ -5,7 +5,7 @@ body {
 }
 	table.chart {
 		width: 740px;
-		display: none;
+		/*display: none; */
 	}
 	table.chartLine {
 		width: 740px;
