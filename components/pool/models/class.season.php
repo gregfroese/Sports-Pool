@@ -19,9 +19,18 @@ class Season extends ActiveRecord {
     	$this->create_belongs_to_association( "status", "pool\Status", "status_id" );
     	$this->create_has_many_association( "seasonusers", "\pool\Seasonusers", "season_id" );
     	$this->create_has_many_association( "segments", "\pool\Segment", "season_id" );
+    	$this->create_has_many_association( "comments", "\pool\Comments", "season_id" );
       	$this->create_has_and_belongs_to_many_association('users', '\silk\auth\User', 'seasonusers', 'user_id', 'season_id', array('order' => 'first_name, last_name ASC'));
     }
 
+    public function getComments( $page = 1, $limit = 10 ) {
+    	$sql = "SELECT * FROM silk_comments AS c WHERE season_id = ? ORDER BY id DESC";
+    	$params = array( $this->id );
+    	$count = \pool\Comments::find_count( array( "conditions"=>array( "season_id = ?", array( $this->id )), "limit"=>array( $offset, $limit )));
+    	$comments = \pool\Comments::find_all_by_query( $sql, $params, $limit, $page * $limit );
+    	return array( "comments"=>$comments, "count"=>$count, "offset"=>$page * $limit, "limit"=>$limit );
+    }
+    
     public function isMember( $user ) {
     	$sql = "SELECT * FROM silk_seasonusers AS su WHERE season_id = ? AND user_id = ?";
     	$params = array( $this->id, $user->id );

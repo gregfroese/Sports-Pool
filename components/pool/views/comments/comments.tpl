@@ -1,0 +1,1 @@
+{render_partial template="load_comments.tpl" season=$season}
