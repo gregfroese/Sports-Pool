@@ -32,5 +32,14 @@ function submitComment() {
 
 function toggleComments() {
 	$(".commentContainer").toggleClass("hide");
+	$(".commentAdd").toggleClass("hide");
+	return false;
+}
+
+function getComments( season_id, page, limit ) {
+	$.post("/comments/getComments", { season_id: season_id, page: page, limit: limit },
+			function(data) {
+				$(".commentContainer").html(data);
+			});
 	return false;
 }

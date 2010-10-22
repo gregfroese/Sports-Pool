@@ -3,6 +3,17 @@ body {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
 }
+	div.title {
+		font-weight: bold;
+		font-size: 14px;
+	}
+	div.small {
+		font-size: 10px;
+	}
+	div.linkContainer {
+		padding: 0px 0px 5px 0px;
+		font-size: 12px;
+	}
 	div.hide {
 		display: none;
 	}

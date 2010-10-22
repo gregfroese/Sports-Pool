@@ -22,6 +22,8 @@ class CommentsController extends \silk\action\Controller {
 		$comment->comment = $com;
 		$comment->save();
 		$this->set( "season", $season );
+		$this->set( "page", 0 );
+		$this->set( "limit", 10 );
 	}
 	
 	/**
@@ -36,9 +38,25 @@ class CommentsController extends \silk\action\Controller {
 	}
 	
 	public function getComments( $params = array() ) {
-		$season_id = $params["id"];
-		$season = \pool\Season::find_by_id( $season_id );
 		$this->show_layout = false;
+		if( empty( $params["page"] )) {
+			$page = 0;
+		} else {
+			$page = $params["page"];
+		}
+		if( empty( $params["limit"] )) {
+			$limit = 10;
+		} else {
+			$limit = $params["limit"];
+		}
+		if( !empty( $params["id"] )) {
+			$season_id = $params["id"];
+		} else {
+			$season_id = $params["season_id"];
+		}
+		$season = \pool\Season::find_by_id( $season_id );
 		$this->set( "season", $season );
+		$this->set( "page", $page );
+		$this->set( "limit", $limit );
 	}
 }
