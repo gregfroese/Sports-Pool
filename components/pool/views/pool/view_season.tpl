@@ -33,7 +33,7 @@
 	</div>
 	
 	<table class="chart">
-		<caption>Leaderboard</caption>
+		<caption>Leaderboard (click name to see stats)</caption>
 		<thead>
 			<tr>
 				<td></td>

@@ -115,7 +115,6 @@ class SeasonmanagerController extends \silk\action\Controller {
 		$segment->deletePoints();
 		$closedGames = 0;
 		
-		$userPoints = array();
 		ob_start();
 		foreach( $segment->games as $game ) {
 			//only calc points for closed games
@@ -160,22 +159,19 @@ class SeasonmanagerController extends \silk\action\Controller {
 						$points->game_id = $game->id;
 						$points->points = $gamePoints;
 						$points->save();
-						if( empty( $userPoints[$user->id] )) {
-							$userPoints[$user->id] = $gamePoints;
-						} else {
-							$userPoints[$user->id] = $userPoints[$user->id] + $gamePoints;
-						}
 					}
 				}
 			}
 		}
 		
 		//store each user's points in the userstats table
-		foreach( $userPoints as $user_id=>$points ) {
-			$userStats = \pool\Userstats::find_by_user_id_and_segment_id( $user_id, $segment->id );
+		$allPoints = array(); //store them all so we can get the high/low out
+		foreach( $segment->season->users as $user ) {
+			$userStats = \pool\Userstats::find_by_user_id_and_segment_id( $user->id, $segment->id );
+			$points = $segment->getPointsBySegment( $user );
 			if( empty( $userStats )) {
 				$userStats = new \pool\Userstats();
-				$userStats->user_id = $user_id;
+				$userStats->user_id = $user->id;
 				$userStats->season_id = $segment->season->id;
 				$userStats->segment_id = $segment->id;
 				$userStats->points = $points;
@@ -183,31 +179,25 @@ class SeasonmanagerController extends \silk\action\Controller {
 				$userStats->points = $points;
 			}
 			$userStats->save();
-		}
-		//store the high and low for this segment in seasonstats table
-		sort( $userPoints );
-		$seasonStats = \pool\Seasonstats::find_by_season_id_and_segment_id( $segment->season->id, $segment->id );
-		if( empty( $seasonStats )) {
-			$seasonStats = new \pool\Seasonstats();
-			$seasonStats->season_id = $segment->season->id;
-			$seasonStats->segment_id = $segment->id;
-		}
-		$seasonStats->high = $userPoints[count( $userPoints ) - 1];
-		$count = 0;
-		$seasonStats->low = $userPoints[$count];
-		
-		while( $userPoints[$count] == 0 ) {
-			$count++;
-			if( isset( $userPoints[$count] )) {
-				$seasonStats->low = $userPoints[$count];
-				if( $count > 1000 ) {
-					break; //there is no hope, no one got any points
-				}
-			} else {
-				break;
+			//@TODO: add a flag on a user to include or exclude them from the stats
+			//they might have just stopped participating so who cares, don't drag down the rest
+			if( $points ) {
+				$allPoints[] = $points;
 			}
 		}
-		$seasonStats->save();
+		//store the high and low for this segment in seasonstats table
+		sort( $allPoints );
+		if( count( $allPoints )) { //don't need to do anything if there are no points
+			$seasonStats = \pool\Seasonstats::find_by_season_id_and_segment_id( $segment->season->id, $segment->id );
+			if( empty( $seasonStats )) {
+				$seasonStats = new \pool\Seasonstats();
+				$seasonStats->season_id = $segment->season->id;
+				$seasonStats->segment_id = $segment->id;
+			}
+			$seasonStats->high = $allPoints[count( $allPoints ) - 1];
+			$seasonStats->low = $allPoints[0];
+			$seasonStats->save();
+		}
 		$contents = ob_get_contents();
 		ob_end_clean();
 		silk\action\Response::redirect_to_action( array( "controller"=>"seasonmanager", "action"=>"manageSegment", "id"=>$segment->season_id, "subid"=>$segment->id ));

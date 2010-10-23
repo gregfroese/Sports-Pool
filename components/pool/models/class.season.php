@@ -133,8 +133,14 @@ class Season extends ActiveRecord {
 		$points = array();
 		foreach( $this->segments as $segment ) {
 			$points["high"][$segment->name] = $segment->seasonstats->high;
+			if( empty( $points["high"][$segment->name] )) { //need a value in there so we don't break the charts
+				$points["high"][$segment->name] = 0;
+			}
 			$points["low"][$segment->name] = $segment->seasonstats->low;
-			$points["user"][$segment->name] = $segment->userstats->points;
+			if( empty( $points["low"][$segment->name] )) { //need a value in there so we don't break the charts
+				$points["low"][$segment->name] = 0;
+			}
+			$points["user"][$segment->name] = $segment->getUserstats( $user );
 		}
 		return $points;
 	}

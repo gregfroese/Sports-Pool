@@ -74,7 +74,6 @@ class PoolController extends \silk\action\Controller {
 		}		
 
 		//create a chart that shows a user's performance cumulatively by segment
-		$ranges2[$username] = $origChartPoints[$username];
 		$total = array();
 		$segmentRanges = array();
 		$userTotal = array();

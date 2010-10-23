@@ -121,5 +121,12 @@ class Segment extends ActiveRecord {
 			$game->lockAllPicks( $user );
 		}
 	}
+	
+	public function getUserstats( $user ) {
+		$sql = "SELECT * FROM silk_userstats AS us WHERE segment_id = ? and user_id = ?";
+		$params = array( $this->id, $user->id );
+		$userStats = \pool\Userstats::find_by_query( $sql, $params );
+		return $userStats->points;
+	}
 }
 ?>
