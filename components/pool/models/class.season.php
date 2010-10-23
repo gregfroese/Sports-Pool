@@ -82,16 +82,6 @@ class Season extends ActiveRecord {
 			$points = 0;
 			$total = 0;
 			foreach( $this->segments as $segment ) {
-				//regular points
-				/*foreach( $segment->games as $game ) {
-					$gamePoints = $game->getPoints( $user );
-					if( !empty( $gamePoints )) {
-						$points = $points + $gamePoints->points;
-					}
-				}*/
-				//bonus points (if any)
-//				$points = $points + $segment->getBonusPoints( $user );
-
 				$points = $segment->getPointsBySegment( $user );
 				$total = $total + $points;
 				$chartPoints[$user->first_name . " " . $user->last_name][$segment->name] = $points;
@@ -99,6 +89,7 @@ class Season extends ActiveRecord {
 			$chartPoints[$user->first_name . " " . $user->last_name]["total"] = $total;
 			//use the sort field as a key for sorting - here we want it to mirror total
 			$chartPoints[$user->first_name . " " . $user->last_name]["sort"] = $total;
+			$chartPoints[$user->first_name . " " . $user->last_name]["user_id"] = $user->id;
 		}
 		$chartPoints = $this->sortChartPoints($chartPoints);
 		return $chartPoints;
@@ -128,12 +119,22 @@ class Season extends ActiveRecord {
 	 */
 	public function getPointsBySegment() {
 		$points = array();
-		foreach( $this->users as $user ) {
+		foreach( $this->seasonusers as $user ) {
 			$key = $user->first_name . " " . $user->last_name;
 			$points[$key] = array();
 			foreach( $this->segments as $segment ) {
 				$points[$key][$segment->name] = $segment->getPointsBySegment( $user );
 			}
+		}
+		return $points;
+	}
+	
+	public function getPerformanceByUser( $user ) {
+		$points = array();
+		foreach( $this->segments as $segment ) {
+			$points["high"][$segment->name] = $segment->seasonstats->high;
+			$points["low"][$segment->name] = $segment->seasonstats->low;
+			$points["user"][$segment->name] = $segment->userstats->points;
 		}
 		return $points;
 	}

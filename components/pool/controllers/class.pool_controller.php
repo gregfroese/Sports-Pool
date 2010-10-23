@@ -220,4 +220,13 @@ class PoolController extends \silk\action\Controller {
 		$this->set( "date", date( "Y-m-d H:i:s" ));
 		$this->set( "user", \silk\Auth\UserSession::get_current_user() );
 	}
+	
+	public function userStats( $params = array() ) {
+		$season_id = $params["season_id"];
+		$user_id = $params["user_id"];
+		$user = \silk\auth\User::find_by_id( $user_id );
+		$this->set( "fullname", $user->first_name . " " . $user->last_name );
+		$this->set( "user", $user );
+		$this->set( "season", \pool\Season::find_by_id( $season_id ));
+	}
 }

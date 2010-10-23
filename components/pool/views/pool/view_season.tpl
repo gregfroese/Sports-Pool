@@ -43,7 +43,7 @@
 		<tbody>
 			{foreach from=$chartPoints key="name" item="chartPoint"}
 				<tr>
-					<th scope="row">{$name}</th>
+					<th scope="row">{link controller="pool" action="userStats" season_id=$season.id user_id=$chartPoint.user_id text=$name}</th>
 					<td>{$chartPoint.total}</td>
 				</tr>
 			{/foreach}
