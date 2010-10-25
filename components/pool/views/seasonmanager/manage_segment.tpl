@@ -12,8 +12,7 @@
 		<th>Status</th>
 		<th>Modifier</th>
 		<th>Notes</th>
-		<th>Start Date</th>
-		<th>End Date</th>
+		<th>Availability</th>
 		<th>Action</th>
 	</tr>
 	{foreach from=$games item=game key=key}

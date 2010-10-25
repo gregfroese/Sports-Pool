@@ -69,7 +69,7 @@
 			{/if}
 		</td>
 		<td width="20%">
-			{$game.start_date} - {$game.end_date}
+			{date_diff date2=$game.end_date}
 		</td>
 	</tr>
 </table>
