@@ -23,6 +23,9 @@
 
 define('ROOT_DIR', dirname(__FILE__));
 
+$timezone = "America/Winnipeg";
+date_default_timezone_set ($timezone);
+$date = date( "Y-m-d H:i:s" );
 include_once('lib/silk/silk.api.php');
 
 \silk\core\Bootstrap::get_instance()->run();
