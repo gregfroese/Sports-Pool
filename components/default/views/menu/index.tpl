@@ -24,18 +24,16 @@
 					<li class="dir">{link controller="pool" action="viewSeason" id=$season_id text=$season.name}
 						<ul>
 							<li>{link controller="pool" action="viewSeason" id=$season_id text="Sesason Overview"}</li>
-							<li class="dir">Segments
-								<ul>
-									{foreach from=$season->segments item="segment"}
-										<li class="dir">{$segment.name}
-											<ul>
-												<li>{link controller="pool" action="enterPicks" id=$segment.id text="Enter Picks"}</li>
-												<li>{link controller="pool" action="viewScores" id=$segment.id text="View Scores"}</li>
-											</ul>
-										</li>
-									{/foreach}
-								</ul>
-							</li>
+							{foreach from=$season->segments item="segment"}
+								<li class="dir">{$segment.name}
+									<ul>
+										{if $segment->status.name == "Active"}
+											<li>{link controller="pool" action="enterPicks" id=$segment.id text="Enter Picks"}</li>
+										{/if}
+										<li>{link controller="pool" action="viewScores" id=$segment.id text="View Scores"}</li>
+									</ul>
+								</li>
+							{/foreach}
 						</ul>
 					</li>
 				{/foreach}
