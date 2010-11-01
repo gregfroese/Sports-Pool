@@ -160,10 +160,8 @@ class Season extends ActiveRecord {
 			if( $prevSegID != $result->segment_id ) {
 				if( !empty( $segment )) {
 					//only do this after the whole segment has been identified and processed
-					//get the high
+					//get the highs and lows
 					$tempPoints = $segPoints; //don't want to lose my indexing so using a temp
-					sort( $tempPoints );
-//					var_dump( $segment->name, $tempPoints ); die;
 					$points["high"][$segment->name] = $tempPoints[count( $tempPoints ) - 1];
 					$points["low"][$segment->name] = $tempPoints[1];
 				}
@@ -177,6 +175,11 @@ class Season extends ActiveRecord {
 				$segPoints[$result->user->id] += $result->points;
 			}
 		}
+		//do it one more time
+		//get the highs and lows
+		$tempPoints = $segPoints; //don't want to lose my indexing so using a temp
+		$points["high"][$segment->name] = $tempPoints[count( $tempPoints ) - 1];
+		$points["low"][$segment->name] = $tempPoints[1];
 		return $points;
 	}
 }
