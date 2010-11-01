@@ -144,5 +144,40 @@ class Season extends ActiveRecord {
 		}
 		return $points;
 	}
+	
+	public function getHighAndLowScoresBySegment( $user ) {
+		$points = array();
+		//getting the user points from another function that has already been called for this page (user_stats.tpl)
+		//so it should be cached and its free
+		$userPoints = $this->getPerformanceByUser( $user );
+		$points["user"] = $userPoints["user"];
+		$sql = "SELECT * FROM silk_userstats AS us WHERE season_id = ? ORDER BY segment_id";
+		$params = array( $this->id );
+		$results = \pool\Userstats::find_all_by_query( $sql, $params );
+		$segPoints = array(); //total up each user's points for each segment and set the high and lows according to cumulative value
+		$prevSegID = 0;
+		foreach( $results as $result ) {
+			if( $prevSegID != $result->segment_id ) {
+				if( !empty( $segment )) {
+					//only do this after the whole segment has been identified and processed
+					//get the high
+					$tempPoints = $segPoints; //don't want to lose my indexing so using a temp
+					sort( $tempPoints );
+//					var_dump( $segment->name, $tempPoints ); die;
+					$points["high"][$segment->name] = $tempPoints[count( $tempPoints ) - 1];
+					$points["low"][$segment->name] = $tempPoints[1];
+				}
+			
+				$prevSegID = $result->segment_id;
+				$segment = \pool\Segment::find_by_id( $result->segment_id );
+			}
+			if( empty( $segPoints[$result->user->id] )) {
+				$segPoints[$result->user->id] = $result->points;
+			} else {
+				$segPoints[$result->user->id] += $result->points;
+			}
+		}
+		return $points;
+	}
 }
 ?>

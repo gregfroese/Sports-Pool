@@ -39,12 +39,13 @@
 	</tbody>
 </table>
 
+{$season->getHighAndLowScoresBySegment($user) assign="chartPoints2"}
 <table class="chartLine">
 	<caption>{$fullname} cumulative</caption>
 	<thead>
 		<tr>
 			<td></td>
-			{foreach from=$chartPoints["high"] key="name" item="chartPoint"}
+			{foreach from=$chartPoints2["high"] key="name" item="chartPoint"}
 				{if $name ne $fullname}
 					<th scope="col">{$name}</th>
 				{/if}
@@ -55,25 +56,21 @@
 			<tr>
 				<th scope="row">{$fullname}</th>
 				{assign var="total" value=0}
-				{foreach from=$chartPoints["user"] key="name" item="points"}
+				{foreach from=$chartPoints2["user"] key="name" item="points"}
 					{math equation=$total+$points assign="total"}
 					<td>{$total}</td>
 				{/foreach}
 			</tr>
 			<tr>
 				<th scope="row">High</th>
-				{assign var="total" value=0}
-				{foreach from=$chartPoints["high"] key="name" item="points"}
-					{math equation=$total+$points assign="total"}
-					<td>{$total}</td>
+				{foreach from=$chartPoints2["high"] key="name" item="points"}
+					<td>{$points}</td>
 				{/foreach}
 			</tr>
 			<tr>
 				<th scope="row">Low</th>
-				{assign var="total" value=0}
-				{foreach from=$chartPoints["low"] key="name" item="points"}
-					{math equation=$total+$points assign="total"}
-					<td>{$total}</td>
+				{foreach from=$chartPoints2["low"] key="name" item="points"}
+					<td>{$points}</td>
 				{/foreach}
 			</tr>
 	</tbody>
