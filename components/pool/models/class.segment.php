@@ -18,7 +18,7 @@ class Segment extends ActiveRecord {
     	$this->create_belongs_to_association( "season", "pool\Season", "season_id", array() );
     	$this->create_has_many_association( "bonus", "pool\Bonus", "segment_id", array() );
     	$this->create_has_one_association( "seasonstats", "pool\Seasonstats", "segment_id", array() );
-    	$this->create_has_one_association( "userstats", "pool\Userstats", "segment_id", array() );
+    	$this->create_has_many_association( "userstats", "pool\Userstats", "segment_id", array() );
     }
 
 	public function validate() {
@@ -127,6 +127,37 @@ class Segment extends ActiveRecord {
 		$params = array( $this->id, $user->id );
 		$userStats = \pool\Userstats::find_by_query( $sql, $params );
 		return $userStats->points;
+	}
+	
+	/**
+	 * @author Greg Froese
+	 * @since 2010.11.02
+	 * Delete all the user and season stats for this segment.  Useful when recalculating stats
+	 */
+	public function cleanStats() {
+		$this->cleanUserStats();
+		$this->cleanSeasonStats();
+	}
+	
+	/**
+	 * @author Greg Froese
+	 * @since 2010.11.02
+	 * Delete all season stats for this segment.  Useful when recalculating stats
+	 */
+	public function cleanUserStats() {
+		foreach( $this->userstats as $stat ) {
+			$stat->delete();
+		}
+	}
+	
+	/**
+	 * @author Greg Froese
+	 * @since 2010.11.02
+	 * Delete all the user stats for this segment.  Useful when recalculating stats
+	 */
+	public function cleanSeasonStats() {
+		$stat = $this->seasonstats;
+		$stat->delete();
 	}
 }
 ?>

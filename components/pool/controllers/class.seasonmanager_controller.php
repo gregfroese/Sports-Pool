@@ -126,18 +126,18 @@ class SeasonmanagerController extends \silk\action\Controller {
 				$game->deleteAllPoints();
 				//calculate the point difference - used for determining ties
 				$pointDiff = abs( $game->away_score - $game->home_score );
+				if( $pointDiff <= 3 ) {
+					$tie = true;
+				} else {
+					$tie = false;
+				}
 				
+				//find the winner v3 2010.11.02
 				echo $game->awayteam->name . "($game->away_id): $game->away_score vs " . $game->hometeam->name . "($game->home_id): $game->home_score<br />";
-				//find the winner
-				if( $game->home_score > $game->away_score + 3 ) { //home team wins
+				if( $game->home_score > $game->away_score ) { //home team wins
 					$winner = $game->home_id;
-					echo "Home wins!<br />";
-				} elseif( $game->away_score > $game->home_score + 3 ) { //away team wins
+				} elseif( $game->away_score > $game->home_score ) { //away team wins
 					$winner = $game->away_id;
-					echo "Away wins!<br />";
-				} elseif( $pointDiff >=0 && $pointDiff <=3 ) { //tie
-					$winner = -1;
-					echo "Tie!<br />";
 				}
 				
 				//give out points
@@ -146,13 +146,16 @@ class SeasonmanagerController extends \silk\action\Controller {
 					if( !empty( $pick )) {
 						echo "user: $user->first_name picked $pick->team_id<br />winner: $winner<br />";
 						$gamePoints = 0;
+						//if the pick was a winner, give some points
 						if( $pick->team_id == $winner ) {
 							$gamePoints = $game->modifier;
 							//double the points if the user correctly picked a tie
-							if( $winner == -1 ) {
-								$gamePoints = $gamePoints * 2;
-							}
 							echo "$user->first_name got it right - $gamePoints points<br />";
+						}
+						
+						//if the game was a tie and the user picked a tie, they get double the points
+						if( $tie && $pick->team_id == -1 ) {
+							$gamePoints = $game->modifier * 2;
 						}
 						$points = new pool\Points();
 						$points->user_id = $user->id;
@@ -163,6 +166,8 @@ class SeasonmanagerController extends \silk\action\Controller {
 				}
 			}
 		}
+		//delete all the user stats and season stats for this segment
+		$segment->cleanStats();
 		
 		//store each user's points in the userstats table
 		$allPoints = array(); //store them all so we can get the high/low out

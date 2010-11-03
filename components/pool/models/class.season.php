@@ -162,6 +162,7 @@ class Season extends ActiveRecord {
 					//only do this after the whole segment has been identified and processed
 					//get the highs and lows
 					$tempPoints = $segPoints; //don't want to lose my indexing so using a temp
+					sort( $tempPoints );
 					$points["high"][$segment->name] = $tempPoints[count( $tempPoints ) - 1];
 					$points["low"][$segment->name] = $tempPoints[1];
 				}
@@ -178,6 +179,7 @@ class Season extends ActiveRecord {
 		//do it one more time
 		//get the highs and lows
 		$tempPoints = $segPoints; //don't want to lose my indexing so using a temp
+		sort( $tempPoints );
 		$points["high"][$segment->name] = $tempPoints[count( $tempPoints ) - 1];
 		$points["low"][$segment->name] = $tempPoints[1];
 		return $points;
