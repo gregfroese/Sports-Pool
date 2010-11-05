@@ -2,7 +2,7 @@
 <table id="game_picks">
 	<tr>
 		<td width="5%">{$game.id}</td>
-		<td width="20%">
+		<td width="15%">
 			{if $pick.team_id == $game.away_id}
 				{assign var="class" value="pick chosen"}
 			{else}
@@ -38,7 +38,7 @@
 				{/if}
 			</div>
 			</td>
-		<td width="20%">
+		<td width="15%">
 			{if $pick.team_id == $game.home_id}
 				{assign var="class" value="pick chosen"}
 			{else}
@@ -57,6 +57,7 @@
 			</div>
 		</td>
 		<td width="5%">{$game.modifier}</td>
+		<td width="10%">{$game.notes}</td>
 		<td width="10%">
 			{if $pick->status.name == ""}
 				N/A

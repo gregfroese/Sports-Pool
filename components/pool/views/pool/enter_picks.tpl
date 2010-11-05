@@ -8,10 +8,11 @@
 				<table id="game_picks">
 					<tr>
 						<th width="5%">Game ID</th>
-						<th width="20%">Away Team</th>
+						<th width="15%">Away Team</th>
 						<th width="5%"></th>
-						<th width="20%">Home Team</th>
+						<th width="15%">Home Team</th>
 						<th width="5%">Modifier</th>
+						<th width="10%">Notes</th>
 						<th width="10%">Action</th>
 						<th width="20%">Availability</th>
 					</tr>
