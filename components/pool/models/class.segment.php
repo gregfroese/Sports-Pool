@@ -17,7 +17,7 @@ class Segment extends ActiveRecord {
     	$this->create_belongs_to_association( "status", "pool\Status", "status_id", array() );
     	$this->create_belongs_to_association( "season", "pool\Season", "season_id", array() );
     	$this->create_has_many_association( "bonus", "pool\Bonus", "segment_id", array() );
-    	$this->create_has_one_association( "seasonstats", "pool\Seasonstats", "segment_id", array() );
+    	$this->create_has_many_association( "seasonstats", "pool\Seasonstats", "segment_id", array() );
     	$this->create_has_many_association( "userstats", "pool\Userstats", "segment_id", array() );
     }
 
