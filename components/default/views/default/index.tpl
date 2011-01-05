@@ -28,6 +28,7 @@
 				<input type="hidden" name="action" value="login">
 				</div>
 			</form>
+			<div style="text-align: left;">New User?<br/><a href="/usermanager/register">Register now</a></div>
 			<div class="clear"></div>
 		</fieldset>
 	</div>

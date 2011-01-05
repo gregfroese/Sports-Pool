@@ -1,6 +1,5 @@
 {* Smarty *}
-<h1>User Manager - Edit/Create User</h1>
-<a href="/usermanager">Back to user list</a>
+<h1>Register now</h1>
 {if $message ne ""}
 	<div class="message">{$message}</div>
 {/if}
@@ -9,8 +8,7 @@
 {/if}
 
 <div id="content">
-	{form action="saveUser" controller="usermanager" id=$user.id}
-		{hidden name="user_id" value=$user.id}
+	{form action="registerUser" controller="usermanager"}
 		<div class="">
 	  		<label class="block" for="username">Username</label>
 		    <input type="text" value="{$user.username}" id="username" class="username" name="username">
@@ -38,22 +36,11 @@
 		<div class="clear"></div>
 		<div class="">
 			<label class="block" for="email">Email</label>
-			<input type="text" value="{$user.email}" id="email" class="email" name="email">
+		    <input type="text" value="{$user.email}" id="email" class="email" name="email">
 		</div>
 		<div class="clear"></div>
-		<div class="">
-			<h2>Member of:</h2>
-			<ol>
-			{foreach from=$user->groups item="group"}
-				<li>{$group.name} - {link controller="usermanager" action="deleteMember" group_id=$group.id user_id=$user.id text="Delete"}</li>
-			{/foreach}
-			</ol>
-			<h2>Add to Group</h2>
-			{html_options name="group_id" options=$allGroups}
-		</div>
-		<div class="clear"></div>
-		<div class="">
-			<input type="submit" class="buttons" value="Submit" name="Submit">
+
+		<input type="submit" class="buttons" value="Submit" name="Register">
 		</div>
 	{/form}
 </div>

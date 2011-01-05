@@ -1,4 +1,5 @@
 <h1>Active Pools</h1>
+<p>Use the Subscribed Pools menu above to access pools that have been closed to new members</p>
 <p>Click to view details</p>
 
 <div id="accordion" class="accordion">

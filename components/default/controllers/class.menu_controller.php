@@ -18,7 +18,9 @@ class MenuController extends \silk\action\Controller {
 		$nonMemberSeasons = array();
 		foreach( \pool\Season::find_all( array( "order by"=>"name ASC")) as $season ) {
 			if( !$season->isMember( $user )) {
-				$nonMemberSeasons[$season->id] = $season;
+				if( $season->status_id == 1 ) {
+					$nonMemberSeasons[$season->id] = $season;
+				}
 			}
 		}
 		$this->set( "user", $user );

@@ -11,6 +11,24 @@ class UsermanagerController extends \silk\action\Controller {
 		$this->set( "users", $users );
 	}
 	
+	public function registerUser( $params = array() ) {
+		$user = new \silk\auth\User();
+		$user->update_parameters( $params );
+		$user->save();
+		var_dump( $user );
+		if( !$user->id ) {
+			var_dump( "there are errors" );
+			$this->set( "message", implode( "<br />", $user->validation_errors ));
+			$this->set( "user", $user );
+		} else {
+			var_dump( "there are no errors" );
+			$group = \silk\auth\Group::find_by_id( 2 );
+			var_dump( $group );
+			$group->add_user( $user );
+			$this->set( "success", 1 );
+		}
+	}
+	
 	public function saveUser( $params = array() ) {
 		$user_id = $params["user_id"];
 		if( empty( $user_id )) {
@@ -74,5 +92,10 @@ class UsermanagerController extends \silk\action\Controller {
 		$group = \silk\auth\Group::find_by_id( $params["group_id"] );
 		$group->remove_user( $user );
 		silk\action\Response::redirect_to_action( array( "controller"=>"usermanager", "action"=>"index" ));
+	}
+
+	public function register( $params = array() ) {
+		$user = new \silk\auth\User();
+		$this->set( "user", $user );
 	}
 }
