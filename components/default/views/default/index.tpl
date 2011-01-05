@@ -6,8 +6,6 @@
 {if $user.id == 0}
 	<div class="notice">
 		Welcome to the new site for the NFL pool.<br />
-		Please update your bookmarks to point to http://pool2.gfroese.com<br />
-		If you haven't received your new username/password, please email the site admin to get your credentials.
 	</div>
 	<div id="leftSide">
 		<fieldset>
