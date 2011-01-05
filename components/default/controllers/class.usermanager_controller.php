@@ -15,15 +15,11 @@ class UsermanagerController extends \silk\action\Controller {
 		$user = new \silk\auth\User();
 		$user->update_parameters( $params );
 		$user->save();
-		var_dump( $user );
 		if( !$user->id ) {
-			var_dump( "there are errors" );
 			$this->set( "message", implode( "<br />", $user->validation_errors ));
 			$this->set( "user", $user );
 		} else {
-			var_dump( "there are no errors" );
 			$group = \silk\auth\Group::find_by_id( 2 );
-			var_dump( $group );
 			$group->add_user( $user );
 			$this->set( "success", 1 );
 		}
