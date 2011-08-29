@@ -38,8 +38,13 @@ class Segment extends ActiveRecord {
 				$avg["away"] = $avg["away"] + $game->away_score;
 			}
 		}
-		$avg["home"] = round( $avg["home"] / $count, 2 );
-		$avg["away"] = round( $avg["away"] / $count, 2 );
+		if( $count ) {
+			$avg["home"] = round( $avg["home"] / $count, 2 );
+			$avg["away"] = round( $avg["away"] / $count, 2 );
+		} else {
+			$avg["home"] = 0;
+			$avg["away"] = 0;
+		}
 		return $avg;
 	}
 	
