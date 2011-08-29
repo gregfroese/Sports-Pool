@@ -68,8 +68,10 @@ class PoolController extends \silk\action\Controller {
 		}
 		//remove items in the user's array that isn't in the high/low ranges
 		foreach( $ranges[$username] as $key=>$value ) {
-			if( !array_key_exists( $key, $ranges["High"] )) {
-				unset( $ranges[$username][$key] );
+			if(is_array($ranges["High"])) {
+				if( !array_key_exists( $key, $ranges["High"] )) {
+					unset( $ranges[$username][$key] );
+				}
 			}
 		}		
 
@@ -112,8 +114,10 @@ class PoolController extends \silk\action\Controller {
 
 		//remove items in the user's array that isn't in the high/low ranges
 		foreach( $userTotal[$username] as $key=>$value ) {
-			if( !array_key_exists( $key, $segmentRanges["High"] )) {
-				unset( $userTotal[$username][$key] );
+			if(is_array($segmentRanges["High"])) {
+				if( !array_key_exists( $key, $segmentRanges["High"] )) {
+					unset( $userTotal[$username][$key] );
+				}
 			}
 		}
 		$points = $season->getPointsBySegment();
